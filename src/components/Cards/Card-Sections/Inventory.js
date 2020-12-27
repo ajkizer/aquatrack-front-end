@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import AddInventory from "../../Modals/AddInventory";
 import { addLivestock, addPlant } from "../../../redux/actions/aquariums";
 import PropTypes from "prop-types";
+import InventoryItemDetails from "../../Modals/InventoryItemDetails";
 
 const Inventory = ({ type, data, addLivestock, addPlant, aquariumId }) => {
   console.log(type, data);
@@ -31,9 +32,12 @@ const Inventory = ({ type, data, addLivestock, addPlant, aquariumId }) => {
             <>No {type}</>
           ) : (
             data.map((item) => (
-              <Button variant={variant} className="mr-1 mt-1" key={item._id}>
-                {item.name} <Badge variant="light">{item.quantity}</Badge>
-              </Button>
+              <InventoryItemDetails
+                key={item._id}
+                item={item}
+                btnvariant={variant}
+                type={type}
+              />
             ))
           )}
         </>

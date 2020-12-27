@@ -5,6 +5,8 @@ import {
   ADD_AQUARIUM,
   ADD_LIVESTOCK,
   ADD_PLANT,
+  EDIT_AQUARIUM,
+  ADD_MAINTENANCE_EVENT,
 } from "../constants/aquariums";
 
 const initialState = {
@@ -44,6 +46,22 @@ export default function (state = initialState, action) {
         plants: { ...state.plants, [payload.data._id]: [] },
       };
     }
+    case EDIT_AQUARIUM: {
+      const updateIndex = state.general
+        .map((item) => item._id)
+        .indexOf(payload.data._id);
+
+      console.log({ updateIndex });
+      console.log({ payload });
+      return {
+        ...state,
+        general: [
+          ...state.general.slice(0, updateIndex),
+          { ...state.general[updateIndex], ...payload.data },
+          ...state.general.slice(updateIndex + 1),
+        ],
+      };
+    }
     case ADD_LIVESTOCK: {
       return {
         ...state,
@@ -60,6 +78,24 @@ export default function (state = initialState, action) {
           ...state.plants,
           [payload._id]: [payload.data, ...state.plants[payload._id]],
         },
+      };
+    }
+    case ADD_MAINTENANCE_EVENT: {
+      const updateIndex = state.general
+        .map((item) => item._id)
+        .indexOf(payload._id);
+
+      console.log(updateIndex);
+      return {
+        ...state,
+        general: [
+          ...state.general.slice(0, updateIndex),
+          {
+            ...state.general[updateIndex],
+            [payload.property]: payload.data.createdAt,
+          },
+          ...state.general.slice(updateIndex + 1),
+        ],
       };
     }
     default:

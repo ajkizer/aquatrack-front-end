@@ -6,6 +6,8 @@ import {
   ADD_AQUARIUM,
   ADD_LIVESTOCK,
   ADD_PLANT,
+  EDIT_AQUARIUM,
+  ADD_MAINTENANCE_EVENT,
 } from "../constants/aquariums";
 
 import { jsonHeader } from "../../utils/jsonHeader";
@@ -64,6 +66,27 @@ export const addAquarium = (formData) => async (dispatch) => {
   }
 };
 
+export const editAquarium = (formData, aquariumId) => async (dispatch) => {
+  const URL = `/api/v1/aquariums/${aquariumId}`;
+  console.log(URL);
+  try {
+    const res = await axios.put(URL, formData);
+
+    dispatch({ type: EDIT_AQUARIUM, payload: res.data });
+  } catch (error) {
+    dispatch({ type: REQUEST_FAILED });
+  }
+};
+
+export const deleteAquarium = (aquariumId) => async (dispatch) => {
+  const URL = `/api/v1/aquariums/${aquariumId}`;
+  try {
+    await axios.delete(URL);
+    dispatch(getAquariums());
+  } catch (error) {
+    dispatch({ type: REQUEST_FAILED });
+  }
+};
 export const addLivestock = (aquariumId, formData) => async (dispatch) => {
   const URL = `/api/v1/aquariums/${aquariumId}/livestock`;
 
@@ -95,6 +118,38 @@ export const addPlant = (aquariumId, formData) => async (dispatch) => {
     console.log(payloadObj);
 
     dispatch({ type: ADD_PLANT, payload: payloadObj });
+  } catch (error) {
+    dispatch({ type: REQUEST_FAILED });
+  }
+};
+
+export const addMaintenanceEvent = (aquariumId, formData, type) => async (
+  dispatch
+) => {
+  const URL = `/api/v1/aquariums/${aquariumId}/${type}`;
+
+  let property;
+
+  if (type === "waterchanges") {
+    property = "lastWaterchange";
+  } else if (type === "parameters") {
+    property = "lastParameterCheck";
+  } else if (type === "maintenanceTasks") {
+    property = "lastMaintenance";
+  }
+
+  try {
+    const res = await axios.post(URL, formData, jsonHeader);
+
+    const payloadObj = {
+      property: property,
+      data: res.data.data,
+      _id: aquariumId,
+    };
+
+    console.log(payloadObj);
+
+    dispatch({ type: ADD_MAINTENANCE_EVENT, payload: payloadObj });
   } catch (error) {
     dispatch({ type: REQUEST_FAILED });
   }

@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 
 import AquariumsGeneral from "../../components/Sections/AquariumsGeneral";
 import Maintenance from "../../components/Sections/Maintenance";
+import Inventory from "../../components/Sections/Inventory";
 
 const Dashboard = ({ getAquariums }) => {
   useEffect(() => {
@@ -23,7 +24,7 @@ const Dashboard = ({ getAquariums }) => {
           <Maintenance />
         </Tab>
         <Tab eventKey="inventory" title="Inventory">
-          Inventory
+          <Inventory />
         </Tab>
       </Tabs>
     </Container>

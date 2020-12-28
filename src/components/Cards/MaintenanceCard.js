@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Card, Col, Badge, Button, Row } from "react-bootstrap";
+import { Card, Col, Badge, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addMaintenanceEvent } from "../../redux/actions/aquariums";
 import AddGenMaintenance from "../Modals/AddMaintenance";

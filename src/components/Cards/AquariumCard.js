@@ -9,10 +9,11 @@ import DeleteAquariums from "../Modals/DeleteAquariums";
 const AquariumCard = ({ aquarium, livestock, plants }) => {
   return (
     <Col md={{ span: 4 }}>
-      <Card>
+      <Card className="light-box-shadow">
         <Card.Header>
           <Card.Title>
-            {aquarium.name} <EditAquarium aquarium={aquarium} />{" "}
+            <h5 className="_text-subtitle skinny">{aquarium.name}</h5>{" "}
+            <EditAquarium aquarium={aquarium} />{" "}
             <DeleteAquariums aquarium={aquarium} />
           </Card.Title>
           <Card.Subtitle></Card.Subtitle>

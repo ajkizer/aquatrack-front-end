@@ -20,7 +20,7 @@ const Inventory = ({ type, data, addLivestock, addPlant, aquariumId }) => {
     <div>
       {data && (
         <>
-          <Card.Subtitle>
+          <Card.Subtitle className="mt-2">
             {type}{" "}
             <AddInventory
               aquariumId={aquariumId}

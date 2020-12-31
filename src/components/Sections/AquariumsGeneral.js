@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Row } from "react-bootstrap";
 import AquariumCard from "../Cards/AquariumCard";
 import AddAquarium from "../Modals/AddAquarium";
+import Header from "../Typography/Header";
 
 import { addAquarium, editAquarium } from "../../redux/actions/aquariums";
 
@@ -15,9 +16,9 @@ const AquariumsGeneral = ({
 }) => {
   return (
     <>
-      <h2>
+      <Header>
         Aquariums <AddAquarium addAquarium={addAquarium} />
-      </h2>
+      </Header>
       {loading ? (
         "loading"
       ) : (

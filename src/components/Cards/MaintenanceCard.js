@@ -19,6 +19,10 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
     return daysSince;
   };
 
+  let waterchangeDate = new Date(aquarium.lastWaterchange);
+  let maintenanceDate = new Date(aquarium.lastMaintenance);
+  let parameterDate = new Date(aquarium.lastParameterCheck);
+
   const checkIfMaintenanceDue = (date, reminder) => {
     if (!date || date.length === 0) {
       return true;
@@ -76,13 +80,38 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
         </Card.Header>
         <Card.Body>
           <Card.Text>
-            Last water change: {wc.text} {wc.due && <ReminderDue />}
+            Last water change:
+            <small>
+              {wc.text}{" "}
+              <em>
+                {aquarium.lastWaterchange &&
+                  waterchangeDate.toLocaleTimeString()}
+              </em>
+            </small>
+            {wc.due && <ReminderDue />}
           </Card.Text>
           <Card.Text>
-            Last parameter check: {pc.text} {pc.due && <ReminderDue />}
+            Last parameter check:
+            <small>
+              {pc.text}{" "}
+              <em>
+                {aquarium.lastParameterCheck &&
+                  parameterDate.toLocaleTimeString()}
+              </em>
+            </small>
+            {pc.due && <ReminderDue />}
           </Card.Text>
           <Card.Text>
-            Last cleaning: {mt.text} {mt.due && <ReminderDue />}
+            Last cleaning:
+            <small>
+              <em>
+                {" "}
+                {mt.text}{" "}
+                {aquarium.lastMaintenance &&
+                  maintenanceDate.toLocaleTimeString()}
+              </em>
+            </small>
+            {mt.due && <ReminderDue />}
           </Card.Text>
           <Row>
             <Col md={{ span: 2 }}>

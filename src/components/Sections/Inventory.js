@@ -20,16 +20,15 @@ const Inventory = ({ aquariums, livestock, plants, addAquarium, loading }) => {
     .concat(plantDisplay)
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  console.log(allDisplay);
   return (
     <>
       <h2>Inventory</h2>
       {loading ? (
         "loading"
       ) : (
-        <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+        <Tab.Container id="left-tabs-inv" defaultActiveKey="first">
           <Row>
-            <Col sm={3}>
+            <Col>
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
                   <Nav.Link eventKey="first">All</Nav.Link>

@@ -12,7 +12,8 @@ const InventoryItemDetails = ({ item, type, btnvariant, editAquarium }) => {
     <>
       <Button
         variant={btnvariant}
-        className="mr-1 mt-1"
+        className="mr-1 mt-1 mb-1 light-box-shadow"
+        size="sm"
         key={item._id}
         onClick={handleShow}
       >

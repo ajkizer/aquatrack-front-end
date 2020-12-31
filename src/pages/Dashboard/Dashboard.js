@@ -8,6 +8,9 @@ import { connect } from "react-redux";
 import AquariumsGeneral from "../../components/Sections/AquariumsGeneral";
 import Maintenance from "../../components/Sections/Maintenance";
 import Inventory from "../../components/Sections/Inventory";
+import WaterChanges from "../../components/Sections/WaterChanges";
+import ParameterChecks from "../../components/Sections/ParameterChecks";
+import MaintenanceTasks from "../../components/Sections/MaintenanceTasks";
 
 const Dashboard = ({ getAquariums }) => {
   useEffect(() => {
@@ -26,6 +29,15 @@ const Dashboard = ({ getAquariums }) => {
         <Tab eventKey="inventory" title="Inventory">
           <Inventory />
         </Tab>
+        <Tab eventKey="waterchanges" title="Water Changes">
+          <WaterChanges />
+        </Tab>
+        <Tab eventKey="parameters" title="Parameters">
+          <ParameterChecks />
+        </Tab>
+        <Tab eventKey="generalMaintenance" title="Maintenance Tasks">
+          <MaintenanceTasks />
+        </Tab>
       </Tabs>
     </Container>
   );
@@ -33,6 +45,7 @@ const Dashboard = ({ getAquariums }) => {
 
 Dashboard.propTypes = {
   getAquariums: PropTypes.func.isRequired,
+
   loadUser: PropTypes.func.isRequired,
 };
 

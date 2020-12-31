@@ -25,14 +25,10 @@ const AddAquarium = ({ addAquarium }) => {
   const { name, size, description } = formData;
   return (
     <>
-      <Button
-        size="sm"
-        variant="outline-primary
-      "
-        onClick={handleShow}
-      >
-        Add <i className="fas fa-plus-circle"></i>
-      </Button>
+      <span className="text-primary" onClick={handleShow}>
+        +
+      </span>
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add Aquarium</Modal.Title>

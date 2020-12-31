@@ -36,3 +36,51 @@
     transform: rotate(360deg);
   }
 }
+
+.light-box-shadow {
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.25);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Barlow", sans-serif;
+  letter-spacing: -2px;
+  opacity: 0.9;
+}
+
+p,
+span {
+  font-family: "Montserrat", sans-serif;
+  opacity: 0.9;
+}
+
+._text-small {
+  font-size: 1rem;
+}
+
+._text-medium {
+  font-size: 1.5rem;
+}
+
+._text-subtitle {
+  font-size: 2.25rem;
+}
+._text-header {
+  font-size: 3rem;
+}
+
+.skinny {
+  font-weight: 200;
+}
+
+.semi-bold {
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: 700;
+}

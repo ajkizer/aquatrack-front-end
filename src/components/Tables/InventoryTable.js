@@ -15,7 +15,7 @@ const InventoryTable = ({ data }) => {
       <tbody>
         {data.map((item) => {
           return (
-            <tr>
+            <tr key={item._id}>
               <td>{item.name}</td>
               <td>{item.quantity}</td>
               <td>{item.price}</td>

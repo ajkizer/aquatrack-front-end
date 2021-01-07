@@ -14,7 +14,13 @@ const ParameterChecks = ({ general }) => {
   };
   return (
     <>
-      <Header>Parameter Checks</Header>
+      <Header>
+        Parameter Checks{" "}
+        <p className="info-text _text-medium skinny">
+          View most recent parameter checks for each aquarium...
+        </p>
+      </Header>
+
       <Row className="pt-4">
         {general.map((item) => (
           <SectionTable

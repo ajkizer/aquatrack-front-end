@@ -28,7 +28,7 @@ const AddWaterchange = ({ addMaintenanceEvent, aquariumId }) => {
 
   return (
     <>
-      <Button onClick={handleShow}>
+      <Button onClick={handleShow} className="light-box-shadow">
         <i className="fas fa-faucet"></i>
       </Button>
 

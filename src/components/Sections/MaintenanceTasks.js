@@ -12,7 +12,13 @@ const MaintenanceTasks = ({ general }) => {
   };
   return (
     <>
-      <Header>Maintenance Tasks</Header>
+      <Header>
+        Maintenance Tasks{" "}
+        <p className="info-text _text-medium skinny">
+          View most recent general maintenance for each aquarium...
+        </p>
+      </Header>
+
       <Row className="pt-4">
         {general.map((item) => (
           <SectionTable

@@ -33,9 +33,14 @@ const DeleteAquarium = ({ aquarium, deleteAquarium }) => {
   const { removeAq } = formData;
   return (
     <>
-      <span onClick={handleShow}>
+      <Button
+        variant="danger"
+        className="light-box-shadow"
+        size="sm"
+        onClick={handleShow}
+      >
         <i className="fas fa-trash-alt"></i>
-      </span>
+      </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Aquarium</Modal.Title>

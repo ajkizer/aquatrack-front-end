@@ -12,7 +12,13 @@ const WaterChanges = ({ general }) => {
   };
   return (
     <>
-      <Header>Water Changes</Header>
+      <Header>
+        Water Changes{" "}
+        <p className="info-text _text-medium skinny">
+          View most recent water changes for each aquarium...
+        </p>
+      </Header>
+
       <Row className="pt-4">
         {general.map((item) => (
           <SectionTable

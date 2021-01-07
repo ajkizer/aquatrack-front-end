@@ -33,7 +33,13 @@ const Inventory = ({ aquariums, livestock, plants, addAquarium, loading }) => {
 
   return (
     <>
-      <Header>Inventory</Header>
+      <Header>
+        Inventory{" "}
+        <p className="info-text _text-medium skinny">
+          View inventory list and values, sort results (view only)...
+        </p>
+      </Header>
+
       {loading ? (
         "loading"
       ) : (

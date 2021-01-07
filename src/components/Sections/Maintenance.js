@@ -7,7 +7,13 @@ import Header from "../Typography/Header";
 const Maintenance = ({ aquariums, livestock, plants, loading }) => {
   return (
     <>
-      <Header>Maintenance</Header>
+      <Header>
+        Maintenance{" "}
+        <p className="info-text _text-medium skinny">
+          Perform water changes, parameter checks, and general maintenance...
+        </p>
+      </Header>
+
       {loading ? (
         "loading"
       ) : (

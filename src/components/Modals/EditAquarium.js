@@ -41,9 +41,14 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
   const { name, size, description, waterchangeReminder } = formData;
   return (
     <>
-      <span onClick={handleShow}>
+      <Button
+        size="sm"
+        variant="info"
+        className="light-box-shadow"
+        onClick={handleShow}
+      >
         <i className="fas fa-pencil-alt"></i>
-      </span>
+      </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Aquarium</Modal.Title>

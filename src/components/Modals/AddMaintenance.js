@@ -24,8 +24,8 @@ const AddGenMaintenance = ({ addMaintenanceEvent, aquariumId }) => {
 
   return (
     <>
-      <Button onClick={handleShow}>
-        <i className="fas fa-hand-sparkles"></i>
+      <Button onClick={handleShow} className="light-box-shadow">
+        <i className="fas fa-wrench"></i>
       </Button>
 
       <Modal show={show} onHide={handleClose}>

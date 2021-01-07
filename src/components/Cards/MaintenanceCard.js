@@ -29,7 +29,6 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
     }
 
     let daysSince = calculateDaysSince(date);
-    console.log(daysSince);
 
     if (daysSince > reminder) {
       return true;
@@ -58,25 +57,16 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
 
   const wc = {
     text: generateReminderText(daysSince.waterchange),
-    due: checkIfMaintenanceDue(
-      aquarium.lastWaterchange,
-      aquarium.waterchangeReminder
-    ),
+    due: checkIfMaintenanceDue(aquarium.lastWaterchange),
   };
 
   const pc = {
     text: generateReminderText(daysSince.parameterCheck),
-    due: checkIfMaintenanceDue(
-      aquarium.lastParameterCheck,
-      aquarium.parameterCheckReminder
-    ),
+    due: checkIfMaintenanceDue(aquarium.lastParameterCheck),
   };
   const mt = {
     text: generateReminderText(daysSince.maintenance),
-    due: checkIfMaintenanceDue(
-      aquarium.lastMaintenance,
-      aquarium.generalMaintenanceReminder
-    ),
+    due: checkIfMaintenanceDue(aquarium.lastMaintenance),
   };
 
   const ReminderDue = () => <Badge variant="warning">Due</Badge>;
@@ -92,30 +82,30 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
         <Card.Body>
           <Card.Text className="_text-small mb-1">
             Water Change <small>{wc.text} </small>
-            {wc.due && <Badge variant="warning">Due</Badge>}
+            {wc.due && <ReminderDue />}
           </Card.Text>
           <Card.Text className="_text-small mb-1">
             Parameter Check <small>{pc.text} </small>
-            {pc.due && <Badge variant="warning">Due</Badge>}
+            {pc.due && <ReminderDue />}
           </Card.Text>
           <Card.Text>
             General Maintenance <small>{mt.text} </small>
-            {mt.due && <Badge variant="warning">Due</Badge>}
+            {mt.due && <ReminderDue />}
           </Card.Text>
           <Row>
-            <Col md={{ span: 2 }}>
+            <Col xs={{ span: 2 }}>
               <AddWaterchange
                 aquariumId={aquarium._id}
                 addMaintenanceEvent={addMaintenanceEvent}
               />
             </Col>
-            <Col md={{ span: 2 }}>
+            <Col xs={{ span: 2 }}>
               <AddParameterCheck
                 aquariumId={aquarium._id}
                 addMaintenanceEvent={addMaintenanceEvent}
               />
             </Col>
-            <Col md={{ span: 2 }}>
+            <Col xs={{ span: 2 }}>
               <AddGenMaintenance
                 aquariumId={aquarium._id}
                 addMaintenanceEvent={addMaintenanceEvent}

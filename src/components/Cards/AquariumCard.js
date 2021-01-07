@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Col } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import Inventory from "./Card-Sections/Inventory";
 import EditAquarium from "../Modals/EditAquarium";
@@ -11,9 +11,17 @@ const AquariumCard = ({ aquarium, livestock, plants }) => {
       <Card className="light-box-shadow row-spacing__large">
         <Card.Header>
           <Card.Title>
-            <h5 className="_text-subtitle skinny">{aquarium.name}</h5>{" "}
-            <EditAquarium aquarium={aquarium} />{" "}
-            <DeleteAquariums aquarium={aquarium} />
+            <Row>
+              <Col xs={{ span: 9 }}>
+                <h5 className="_text-subtitle skinny">{aquarium.name}</h5>{" "}
+              </Col>
+              <Col xs={{ span: 1 }} className="mr-1">
+                <EditAquarium aquarium={aquarium} />{" "}
+              </Col>
+              <Col xs={{ span: 1 }}>
+                <DeleteAquariums aquarium={aquarium} />
+              </Col>
+            </Row>
           </Card.Title>
           <Card.Subtitle></Card.Subtitle>
         </Card.Header>

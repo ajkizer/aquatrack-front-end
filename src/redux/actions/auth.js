@@ -14,7 +14,7 @@ import {
   AUTH_ERROR,
 } from "../constants/auth";
 
-const root = "https://aquatrack-api-v1.herokuapp.com/";
+const root = "https://aquatrack-api-v1.herokuapp.com";
 
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {

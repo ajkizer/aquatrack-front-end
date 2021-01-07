@@ -5,7 +5,7 @@ import AquariumCard from "../Cards/AquariumCard";
 import AddAquarium from "../Modals/AddAquarium";
 import Header from "../Typography/Header";
 
-import { addAquarium, editAquarium } from "../../redux/actions/aquariums";
+import { addAquarium } from "../../redux/actions/aquariums";
 
 const AquariumsGeneral = ({
   aquariums,

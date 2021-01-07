@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import { Modal, Form, Button, Badge } from "react-bootstrap";
 
-const AddAquarium = ({ addAquarium }) => {
+const EditInventory = ({ item, submit, btnvariant }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    size: "",
-    description: "",
+    name: item.name,
+    description: item.description,
+    quantity: item.quantity,
+    price: item.price,
   });
 
   const handleClose = () => setShow(false);
@@ -14,23 +15,28 @@ const AddAquarium = ({ addAquarium }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addAquarium(formData);
+    submit(formData, item._id);
     handleClose();
   };
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const { name, size, description } = formData;
+  const { name, quantity, price, description } = formData;
   return (
     <>
-      <span className="text-primary" onClick={handleShow}>
-        +
-      </span>
-
+      <Button
+        variant={btnvariant}
+        className="mr-1 mt-1 mb-1 light-box-shadow"
+        size="sm"
+        key={item._id}
+        onClick={handleShow}
+      >
+        {item.name} <Badge variant="light">{item.quantity}</Badge>
+      </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Aquarium</Modal.Title>
+          <Modal.Title>Edit Item</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={(e) => handleSubmit(e)}>
@@ -45,12 +51,21 @@ const AddAquarium = ({ addAquarium }) => {
               />
             </Form.Group>
             <Form.Group controlId={`addAquariumSize`}>
-              <Form.Label>Size</Form.Label>
+              <Form.Label>Quantity</Form.Label>
               <Form.Control
-                name="size"
+                name="quantity"
                 placeholder="Enter size in gallons"
                 type="text"
-                value={size}
+                value={quantity}
+                onChange={(e) => changeHandler(e)}
+              />
+            </Form.Group>
+            <Form.Group controlId={`addAquariumSize`}>
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                name="price"
+                type="text"
+                value={price}
                 onChange={(e) => changeHandler(e)}
               />
             </Form.Group>
@@ -75,4 +90,4 @@ const AddAquarium = ({ addAquarium }) => {
   );
 };
 
-export default AddAquarium;
+export default EditInventory;

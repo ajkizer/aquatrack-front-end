@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { Modal, Form, Card, Button } from "react-bootstrap";
+
+import { Modal, Form, Button } from "react-bootstrap";
 
 const AddInventory = ({ aquariumId, submit, property }) => {
   const [show, setShow] = useState(false);
@@ -27,7 +27,9 @@ const AddInventory = ({ aquariumId, submit, property }) => {
 
   return (
     <>
-      <span onClick={handleShow}>+</span>
+      <span className="_text-small barlow pointer" onClick={handleShow}>
+        +add
+      </span>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

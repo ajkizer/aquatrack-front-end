@@ -18,7 +18,7 @@ const Dashboard = ({ getAquariums }) => {
     getAquariums();
   }, []);
   return (
-    <Container>
+    <Container className="pt-4">
       <Tabs defaultActiveKey="aquariums" id="dashboard-tabs">
         <Tab eventKey="aquariums" title="Aquariums">
           <AquariumsGeneral />

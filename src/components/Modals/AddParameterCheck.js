@@ -33,7 +33,7 @@ const AddParameterCheck = ({ addMaintenanceEvent, aquariumId }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const { ammonia, nitrate, nitrite, pH, notes } = formData;
+  const { ammonia, nitrate, nitrite, pH } = formData;
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

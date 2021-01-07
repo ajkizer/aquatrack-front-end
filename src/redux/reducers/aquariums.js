@@ -6,7 +6,9 @@ import {
   ADD_LIVESTOCK,
   ADD_PLANT,
   EDIT_AQUARIUM,
+  EDIT_LIVESTOCK,
   ADD_MAINTENANCE_EVENT,
+  EDIT_PLANT,
 } from "../constants/aquariums";
 
 const initialState = {
@@ -71,6 +73,55 @@ export default function (state = initialState, action) {
         },
       };
     }
+
+    case EDIT_LIVESTOCK: {
+      const updateIndex = state.livestock[payload.data.aquarium]
+        .map((item) => item._id)
+        .indexOf(payload.data._id);
+
+      return {
+        ...state,
+        livestock: {
+          ...state.livestock,
+          [payload.data.aquarium]: [
+            ...state.livestock[payload.data.aquarium].slice(0, updateIndex),
+            {
+              ...state.livestock[payload.data.aquarium][updateIndex],
+              name: payload.data.name,
+              description: payload.data.description,
+              quantity: payload.data.quantity,
+              price: payload.data.price,
+            },
+            ...state.livestock[payload.data.aquarium].slice(updateIndex + 1),
+          ],
+        },
+      };
+    }
+
+    case EDIT_PLANT: {
+      const updateIndex = state.plants[payload.data.aquarium]
+        .map((item) => item._id)
+        .indexOf(payload.data._id);
+
+      return {
+        ...state,
+        plants: {
+          ...state.plants,
+          [payload.data.aquarium]: [
+            ...state.plants[payload.data.aquarium].slice(0, updateIndex),
+            {
+              ...state.plants[payload.data.aquarium][updateIndex],
+              name: payload.data.name,
+              description: payload.data.description,
+              quantity: payload.data.quantity,
+              price: payload.data.price,
+            },
+            ...state.plants[payload.data.aquarium].slice(updateIndex + 1),
+          ],
+        },
+      };
+    }
+
     case ADD_PLANT: {
       return {
         ...state,
@@ -98,6 +149,7 @@ export default function (state = initialState, action) {
         ],
       };
     }
+
     default:
       return state;
   }

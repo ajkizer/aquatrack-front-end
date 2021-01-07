@@ -34,7 +34,7 @@ const DeleteAquarium = ({ aquarium, deleteAquarium }) => {
   return (
     <>
       <span onClick={handleShow}>
-        <i class="fas fa-trash-alt"></i>
+        <i className="fas fa-trash-alt"></i>
       </span>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

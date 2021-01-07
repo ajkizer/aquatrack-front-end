@@ -1,20 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import ParameterCheckTable from "../Tables/ParameterCheckTable";
+import Header from "../Typography/Header";
+
+import SectionTable from "../Tables/SectionTable";
 import { Row } from "react-bootstrap";
 
 const ParameterChecks = ({ general }) => {
+  console.log(general);
+  const fields = {
+    labels: ["Ammonia", "Nitrite", "Nitrate", "pH"],
+    formdata: ["ammonia", "nitrite", "nitrate", "pH"],
+  };
   return (
-    <Row>
-      {general.map((item) => (
-        <ParameterCheckTable
-          key={item._id}
-          aquariumId={item._id}
-          aquariumName={item.name}
-        />
-      ))}
-    </Row>
+    <>
+      <Header>Parameter Checks</Header>
+      <Row className="pt-4">
+        {general.map((item) => (
+          <SectionTable
+            key={item._id}
+            aquariumId={item._id}
+            aquariumName={item.name}
+            route="parameters"
+            header="Parameter Checks"
+            fields={fields}
+          />
+        ))}
+      </Row>
+    </>
   );
 };
 

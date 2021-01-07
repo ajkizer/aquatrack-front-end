@@ -10,9 +10,21 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
     name: aquarium.name,
     size: aquarium.size,
     description: aquarium.description,
+    parameterCheckReminder: aquarium.parameterCheckReminder,
+    waterchangeReminder: aquarium.waterchangeReminder,
+    generalMaintenanceReminder: aquarium.generalMaintenanceReminder,
   });
 
-  console.log(aquarium);
+  const reminderOptions = [1, 3, 5, 7, 14, 21, 28];
+  const reminderText = [
+    "Daily",
+    "Every 3 Days",
+    "Every 5 Days",
+    "Weekly",
+    "Every 2 Weeks",
+    "Every 3 Weeks",
+    "Once a Month",
+  ];
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -26,11 +38,11 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const { name, size, description } = formData;
+  const { name, size, description, waterchangeReminder } = formData;
   return (
     <>
       <span onClick={handleShow}>
-        <i class="fas fa-pencil-alt"></i>
+        <i className="fas fa-pencil-alt"></i>
       </span>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -68,6 +80,22 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
                 value={description}
                 onChange={(e) => changeHandler(e)}
               />
+            </Form.Group>
+            <Form.Group controlId={`addAquariumDescription`}>
+              <Form.Label>Water Change Schedule</Form.Label>
+              <Form.Control
+                name="waterchangeReminder"
+                type="text"
+                as="select"
+                value={waterchangeReminder}
+                onChange={(e) => changeHandler(e)}
+              >
+                {reminderOptions.map((option, index) => (
+                  <option key={`waterchangeReminder${option}`} value={option}>
+                    {reminderText[index]}
+                  </option>
+                ))}
+              </Form.Control>
             </Form.Group>
             <Button variant="primary" type="submit">
               Save Changes

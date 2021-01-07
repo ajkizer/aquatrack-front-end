@@ -2,17 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { Row } from "react-bootstrap";
 import MaintenanceCard from "../Cards/MaintenanceCard";
+import Header from "../Typography/Header";
 
-const Maintenance = ({
-  aquariums,
-  livestock,
-  plants,
-
-  loading,
-}) => {
+const Maintenance = ({ aquariums, livestock, plants, loading }) => {
   return (
     <>
-      <h2>Maintenance</h2>
+      <Header>Maintenance</Header>
       {loading ? (
         "loading"
       ) : (

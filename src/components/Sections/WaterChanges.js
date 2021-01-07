@@ -1,20 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import WaterchangeTable from "../Tables/WaterchangeTable";
+import SectionTable from "../Tables/SectionTable";
 import { Row } from "react-bootstrap";
+import Header from "../Typography/Header";
 
 const WaterChanges = ({ general }) => {
+  const fields = {
+    labels: ["Percent Change", "Notes"],
+    formdata: ["percentChange", "notes"],
+  };
   return (
-    <Row>
-      {general.map((item) => (
-        <WaterchangeTable
-          key={item._id}
-          aquariumId={item._id}
-          aquariumName={item.name}
-        />
-      ))}
-    </Row>
+    <>
+      <Header>Water Changes</Header>
+      <Row className="pt-4">
+        {general.map((item) => (
+          <SectionTable
+            key={item._id}
+            aquariumId={item._id}
+            aquariumName={item.name}
+            route="waterchanges"
+            header="Water Changes"
+            fields={fields}
+          />
+        ))}
+      </Row>
+    </>
   );
 };
 

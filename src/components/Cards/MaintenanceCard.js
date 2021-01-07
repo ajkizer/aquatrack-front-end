@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Card, Col, Badge, Row } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -19,9 +19,9 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
     return daysSince;
   };
 
-  let waterchangeDate = new Date(aquarium.lastWaterchange);
-  let maintenanceDate = new Date(aquarium.lastMaintenance);
-  let parameterDate = new Date(aquarium.lastParameterCheck);
+  // let waterchangeDate = new Date(aquarium.lastWaterchange);
+  // let maintenanceDate = new Date(aquarium.lastMaintenance);
+  // let parameterDate = new Date(aquarium.lastParameterCheck);
 
   const checkIfMaintenanceDue = (date, reminder) => {
     if (!date || date.length === 0) {
@@ -29,6 +29,7 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
     }
 
     let daysSince = calculateDaysSince(date);
+    console.log(daysSince);
 
     if (daysSince > reminder) {
       return true;
@@ -57,61 +58,49 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
 
   const wc = {
     text: generateReminderText(daysSince.waterchange),
-    due: checkIfMaintenanceDue(aquarium.lastWaterchange),
+    due: checkIfMaintenanceDue(
+      aquarium.lastWaterchange,
+      aquarium.waterchangeReminder
+    ),
   };
 
   const pc = {
     text: generateReminderText(daysSince.parameterCheck),
-    due: checkIfMaintenanceDue(aquarium.lastParameterCheck),
+    due: checkIfMaintenanceDue(
+      aquarium.lastParameterCheck,
+      aquarium.parameterCheckReminder
+    ),
   };
   const mt = {
     text: generateReminderText(daysSince.maintenance),
-    due: checkIfMaintenanceDue(aquarium.lastMaintenance),
+    due: checkIfMaintenanceDue(
+      aquarium.lastMaintenance,
+      aquarium.generalMaintenanceReminder
+    ),
   };
 
   const ReminderDue = () => <Badge variant="warning">Due</Badge>;
 
   return (
     <Col md={{ span: 4 }}>
-      <Card>
+      <Card className="light-box-shadow row-spacing__large">
         <Card.Header>
-          <Card.Title>{aquarium.name}</Card.Title>
-          <Card.Subtitle>{aquarium.size} gallons</Card.Subtitle>
+          <Card.Title>
+            <h5 className="_text-subtitle skinny">{aquarium.name}</h5>
+          </Card.Title>
         </Card.Header>
         <Card.Body>
-          <Card.Text>
-            Last water change:
-            <small>
-              {wc.text}{" "}
-              <em>
-                {aquarium.lastWaterchange &&
-                  waterchangeDate.toLocaleTimeString()}
-              </em>
-            </small>
-            {wc.due && <ReminderDue />}
+          <Card.Text className="_text-small mb-1">
+            Water Change <small>{wc.text} </small>
+            {wc.due && <Badge variant="warning">Due</Badge>}
+          </Card.Text>
+          <Card.Text className="_text-small mb-1">
+            Parameter Check <small>{pc.text} </small>
+            {pc.due && <Badge variant="warning">Due</Badge>}
           </Card.Text>
           <Card.Text>
-            Last parameter check:
-            <small>
-              {pc.text}{" "}
-              <em>
-                {aquarium.lastParameterCheck &&
-                  parameterDate.toLocaleTimeString()}
-              </em>
-            </small>
-            {pc.due && <ReminderDue />}
-          </Card.Text>
-          <Card.Text>
-            Last cleaning:
-            <small>
-              <em>
-                {" "}
-                {mt.text}{" "}
-                {aquarium.lastMaintenance &&
-                  maintenanceDate.toLocaleTimeString()}
-              </em>
-            </small>
-            {mt.due && <ReminderDue />}
+            General Maintenance <small>{mt.text} </small>
+            {mt.due && <Badge variant="warning">Due</Badge>}
           </Card.Text>
           <Row>
             <Col md={{ span: 2 }}>

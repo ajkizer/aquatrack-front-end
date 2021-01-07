@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import { addMaintenanceEvent } from "../../redux/actions/aquariums";
+
 const AddGenMaintenance = ({ addMaintenanceEvent, aquariumId }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
@@ -38,7 +38,7 @@ const AddGenMaintenance = ({ addMaintenanceEvent, aquariumId }) => {
             <Form.Group controlId={`addMaintenanceDescription`}>
               <Form.Label>Description</Form.Label>
               <Form.Control
-                name="name"
+                name="description"
                 as="textarea"
                 placeholder="Describe what you did..."
                 value={description}

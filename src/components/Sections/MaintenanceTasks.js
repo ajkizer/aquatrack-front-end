@@ -1,20 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import MaintenanceTaskTable from "../Tables/MaintenanceTaskTable";
 import { Row } from "react-bootstrap";
+import SectionTable from "../Tables/SectionTable";
+import Header from "../Typography/Header";
 
 const MaintenanceTasks = ({ general }) => {
+  const fields = {
+    labels: ["Description"],
+    formdata: ["description"],
+  };
   return (
-    <Row>
-      {general.map((item) => (
-        <MaintenanceTaskTable
-          key={item._id}
-          aquariumId={item._id}
-          aquariumName={item.name}
-        />
-      ))}
-    </Row>
+    <>
+      <Header>Maintenance Tasks</Header>
+      <Row className="pt-4">
+        {general.map((item) => (
+          <SectionTable
+            key={item._id}
+            aquariumId={item._id}
+            aquariumName={item.name}
+            route="maintenanceTasks"
+            header="Maintenance Tasks"
+            fields={fields}
+          />
+        ))}
+      </Row>
+    </>
   );
 };
 

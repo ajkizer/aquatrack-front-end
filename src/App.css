@@ -49,6 +49,7 @@ h5,
 h6 {
   font-family: "Barlow", sans-serif;
   letter-spacing: -2px;
+  color: #282c34;
   opacity: 0.9;
 }
 
@@ -56,21 +57,27 @@ p,
 span {
   font-family: "Montserrat", sans-serif;
   opacity: 0.9;
+  color: #282c34;
 }
 
 ._text-small {
   font-size: 1rem;
+  margin: 0;
 }
 
+.barlow {
+  font-family: "Barlow", sans-serif;
+}
 ._text-medium {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  margin: 0;
 }
 
 ._text-subtitle {
   font-size: 2.25rem;
 }
 ._text-header {
-  font-size: 3rem;
+  font-size: 3.5rem;
 }
 
 .skinny {
@@ -83,4 +90,16 @@ span {
 
 .bold {
   font-weight: 700;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+.row-spacing__large {
+  margin: 2rem 0;
+}
+
+.row-spacing__header {
+  margin: 2rem auto 0rem;
 }

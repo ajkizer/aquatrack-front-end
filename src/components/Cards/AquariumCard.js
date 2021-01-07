@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Card, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import Inventory from "./Card-Sections/Inventory";
@@ -9,7 +8,7 @@ import DeleteAquariums from "../Modals/DeleteAquariums";
 const AquariumCard = ({ aquarium, livestock, plants }) => {
   return (
     <Col md={{ span: 4 }}>
-      <Card className="light-box-shadow">
+      <Card className="light-box-shadow row-spacing__large">
         <Card.Header>
           <Card.Title>
             <h5 className="_text-subtitle skinny">{aquarium.name}</h5>{" "}
@@ -19,8 +18,10 @@ const AquariumCard = ({ aquarium, livestock, plants }) => {
           <Card.Subtitle></Card.Subtitle>
         </Card.Header>
         <Card.Body>
-          <Card.Subtitle>Size</Card.Subtitle>
-          <Card.Text>{aquarium.size} gallons</Card.Text>
+          <Card.Text className="_text-medium">Size</Card.Text>
+          <Card.Text className="_text-small mb-4">
+            {aquarium.size} gallons
+          </Card.Text>
           <Inventory
             type="livestock"
             data={livestock}

@@ -1,33 +1,44 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Card, Col, Nav, Tab, Row, Table } from "react-bootstrap";
+import { Col, Nav, Tab, Row } from "react-bootstrap";
 import InventoryTable from "../Tables/InventoryTable";
+import Header from "../Typography/Header";
 
 const Inventory = ({ aquariums, livestock, plants, addAquarium, loading }) => {
-  const aquariumIds = aquariums.map((item) => item._id);
-  const livestockItems = aquariumIds.map((id) => livestock[id]);
-  const plantItems = aquariumIds.map((id) => plants[id]);
+  const [sortProp, setSortProp] = useState("name");
+  const aquariumIds = aquariums.map((item) => item._id).sort();
+  const livestockItems = aquariumIds
+    .map((id) => livestock[id])
+    .sort((item) => item[sortProp]);
+  const plantItems = aquariumIds
+    .map((id) => plants[id])
+    .sort((item) => item[sortProp]);
 
-  const livestockDisplay = livestockItems
-    .flat()
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const sortDisplay = (items) => {
+    if (sortProp === "name") {
+      return items.flat().sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortProp === "aquarium") {
+      return items
+        .flat()
+        .sort((a, b) => a.aquarium.name.localeCompare(b.aquarium.name));
+    } else {
+      return items.flat().sort((a, b) => a[sortProp] - b[sortProp]);
+    }
+  };
 
-  const plantDisplay = plantItems
-    .flat()
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const livestockDisplay = sortDisplay(livestockItems);
+  const plantDisplay = sortDisplay(plantItems);
 
-  const allDisplay = livestockDisplay
-    .concat(plantDisplay)
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const allDisplay = sortDisplay(livestockDisplay.concat(plantDisplay));
 
   return (
     <>
-      <h2>Inventory</h2>
+      <Header>Inventory</Header>
       {loading ? (
         "loading"
       ) : (
         <Tab.Container id="left-tabs-inv" defaultActiveKey="first">
-          <Row>
+          <Row className="pt-4">
             <Col>
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
@@ -44,13 +55,19 @@ const Inventory = ({ aquariums, livestock, plants, addAquarium, loading }) => {
             <Col sm={9}>
               <Tab.Content>
                 <Tab.Pane eventKey="first">
-                  <InventoryTable data={allDisplay} />
+                  <InventoryTable data={allDisplay} setSortProp={setSortProp} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
-                  <InventoryTable data={plantDisplay} />
+                  <InventoryTable
+                    data={plantDisplay}
+                    setSortProp={setSortProp}
+                  />
                 </Tab.Pane>
                 <Tab.Pane eventKey="third">
-                  <InventoryTable data={livestockDisplay} />
+                  <InventoryTable
+                    data={livestockDisplay}
+                    setSortProp={setSortProp}
+                  />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

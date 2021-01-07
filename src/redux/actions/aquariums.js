@@ -14,7 +14,7 @@ import {
 
 import { jsonHeader } from "../../utils/jsonHeader";
 
-const root = "https://aquatrack-api-v1.herokuapp.com/";
+const root = "https://aquatrack-api-v1.herokuapp.com";
 
 export const getAquariums = () => async (dispatch) => {
   const URL = {

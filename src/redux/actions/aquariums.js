@@ -14,11 +14,13 @@ import {
 
 import { jsonHeader } from "../../utils/jsonHeader";
 
+const root = "https://aquatrack-api-v1.herokuapp.com/";
+
 export const getAquariums = () => async (dispatch) => {
   const URL = {
-    getAquariums: "/api/v1/aquariums",
-    getLivestock: "/api/v1/livestock",
-    getPlants: "/api/v1/plants",
+    getAquariums: `${root}/api/v1/aquariums`,
+    getLivestock: `${root}/api/v1/livestock`,
+    getPlants: `${root}/api/v1/plants`,
   };
 
   try {
@@ -57,7 +59,7 @@ export const getAquariums = () => async (dispatch) => {
 };
 
 export const addAquarium = (formData) => async (dispatch) => {
-  const URL = "/api/v1/aquariums";
+  const URL = `${root}/api/v1/aquariums`;
 
   try {
     const res = await axios.post(URL, formData, jsonHeader);
@@ -69,7 +71,7 @@ export const addAquarium = (formData) => async (dispatch) => {
 };
 
 export const editAquarium = (formData, aquariumId) => async (dispatch) => {
-  const URL = `/api/v1/aquariums/${aquariumId}`;
+  const URL = `${root}/api/v1/aquariums/${aquariumId}`;
   console.log(URL);
   try {
     const res = await axios.put(URL, formData);
@@ -81,7 +83,7 @@ export const editAquarium = (formData, aquariumId) => async (dispatch) => {
 };
 
 export const deleteAquarium = (aquariumId) => async (dispatch) => {
-  const URL = `/api/v1/aquariums/${aquariumId}`;
+  const URL = `${root}/api/v1/aquariums/${aquariumId}`;
   try {
     await axios.delete(URL);
     dispatch(getAquariums());
@@ -90,7 +92,7 @@ export const deleteAquarium = (aquariumId) => async (dispatch) => {
   }
 };
 export const addLivestock = (aquariumId, formData) => async (dispatch) => {
-  const URL = `/api/v1/aquariums/${aquariumId}/livestock`;
+  const URL = `${root}/api/v1/aquariums/${aquariumId}/livestock`;
 
   try {
     const res = await axios.post(URL, formData, jsonHeader);
@@ -107,7 +109,7 @@ export const addLivestock = (aquariumId, formData) => async (dispatch) => {
 };
 
 export const addPlant = (aquariumId, formData) => async (dispatch) => {
-  const URL = `/api/v1/aquariums/${aquariumId}/plants`;
+  const URL = `${root}/api/v1/aquariums/${aquariumId}/plants`;
 
   try {
     const res = await axios.post(URL, formData, jsonHeader);
@@ -128,7 +130,7 @@ export const addPlant = (aquariumId, formData) => async (dispatch) => {
 export const addMaintenanceEvent = (aquariumId, formData, type) => async (
   dispatch
 ) => {
-  const URL = `/api/v1/aquariums/${aquariumId}/${type}`;
+  const URL = `${root}/api/v1/aquariums/${aquariumId}/${type}`;
 
   let property;
 
@@ -158,7 +160,7 @@ export const addMaintenanceEvent = (aquariumId, formData, type) => async (
 };
 
 export const editLivestock = (formData, livestockId) => async (dispatch) => {
-  const URL = `/api/v1/livestock/${livestockId}`;
+  const URL = `${root}/api/v1/livestock/${livestockId}`;
 
   try {
     const res = await axios.put(URL, formData, jsonHeader);
@@ -169,7 +171,7 @@ export const editLivestock = (formData, livestockId) => async (dispatch) => {
 };
 
 export const editPlant = (formData, plantId) => async (dispatch) => {
-  const URL = `/api/v1/plants/${plantId}`;
+  const URL = `${root}/api/v1/plants/${plantId}`;
 
   try {
     const res = await axios.put(URL, formData, jsonHeader);

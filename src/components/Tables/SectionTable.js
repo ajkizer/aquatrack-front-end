@@ -14,7 +14,7 @@ const SectionTable = ({ aquariumId, aquariumName, route, fields, limit }) => {
   useEffect(() => {
     axios
       .get(
-        `/api/v1/aquariums/${aquariumId}/${route}?limit=${limit}&page=${page}`
+        `https://aquatrack-api-v1.herokuapp.com/api/v1/aquariums/${aquariumId}/${route}?limit=${limit}&page=${page}`
       )
       .then((res) => {
         setResponseData(res.data);

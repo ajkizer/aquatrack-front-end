@@ -20,16 +20,17 @@ const WaterChanges = ({ general }) => {
       </Header>
 
       <Row className="pt-4">
-        {general.map((item) => (
-          <SectionTable
-            key={item._id}
-            aquariumId={item._id}
-            aquariumName={item.name}
-            route="waterchanges"
-            header="Water Changes"
-            fields={fields}
-          />
-        ))}
+        {general &&
+          general.map((item) => (
+            <SectionTable
+              key={item._id}
+              aquariumId={item._id}
+              aquariumName={item.name}
+              route="waterchanges"
+              header="Water Changes"
+              fields={fields}
+            />
+          ))}
       </Row>
     </>
   );

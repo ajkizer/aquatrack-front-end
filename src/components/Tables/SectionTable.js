@@ -18,6 +18,7 @@ const SectionTable = ({ aquariumId, aquariumName, route, fields, limit }) => {
       )
       .then((res) => {
         setResponseData(res.data);
+        console.log(res.data);
       })
       .catch((error) => console.log(error));
   }, [page, flag]);

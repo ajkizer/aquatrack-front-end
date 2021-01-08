@@ -27,7 +27,7 @@ const SectionTable = ({ aquariumId, aquariumName, route, fields, limit }) => {
       {responseData.data && (
         <>
           <Row>
-            <Col xs={{ span: 4 }}>
+            <Col xs={{ span: 6 }}>
               <p className="_text-subtitle skinny">{aquariumName}</p>
             </Col>
           </Row>

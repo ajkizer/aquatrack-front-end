@@ -36,7 +36,7 @@ const Inventory = ({ aquariums, livestock, plants, addAquarium, loading }) => {
       <Header>
         Inventory{" "}
         <p className="info-text _text-medium skinny">
-          View inventory list and values, sort results (view only)...
+          View inventory list and values, sort results...
         </p>
       </Header>
 

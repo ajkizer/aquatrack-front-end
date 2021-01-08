@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Form, Button, Badge } from "react-bootstrap";
 
-const EditInventory = ({ item, submit, btnvariant }) => {
+const EditInventory = ({ item, submit, btnvariant, deleteFn }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: item.name,
@@ -9,6 +9,8 @@ const EditInventory = ({ item, submit, btnvariant }) => {
     quantity: item.quantity,
     price: item.price,
   });
+
+  const [confirmTriggered, toggleConfirm] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -36,7 +38,7 @@ const EditInventory = ({ item, submit, btnvariant }) => {
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Item</Modal.Title>
+          <Modal.Title>Edit Item </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={(e) => handleSubmit(e)}>
@@ -83,6 +85,35 @@ const EditInventory = ({ item, submit, btnvariant }) => {
             <Button variant="primary" type="submit">
               Save Changes
             </Button>
+            {confirmTriggered ? (
+              <>
+                <Button
+                  variant="primary"
+                  className="light-box-shadow ml-1"
+                  onClick={() => toggleConfirm(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="danger"
+                  className="light-box-shadow ml-1"
+                  onClick={() => {
+                    deleteFn(item._id, item.aquarium);
+                    handleClose();
+                  }}
+                >
+                  Confirm
+                </Button>
+              </>
+            ) : (
+              <Button
+                variant="danger"
+                className="light-box-shadow ml-1"
+                onClick={() => toggleConfirm(true)}
+              >
+                Delete
+              </Button>
+            )}
           </Form>
         </Modal.Body>
       </Modal>

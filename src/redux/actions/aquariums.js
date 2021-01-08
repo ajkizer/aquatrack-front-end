@@ -10,6 +10,8 @@ import {
   ADD_MAINTENANCE_EVENT,
   EDIT_LIVESTOCK,
   EDIT_PLANT,
+  REMOVE_LIVESTOCK,
+  REMOVE_PLANT,
 } from "../constants/aquariums";
 
 import { jsonHeader } from "../../utils/jsonHeader";
@@ -176,6 +178,38 @@ export const editPlant = (formData, plantId) => async (dispatch) => {
   try {
     const res = await axios.put(URL, formData, jsonHeader);
     dispatch({ type: EDIT_PLANT, payload: res.data });
+  } catch (error) {
+    dispatch({ type: REQUEST_FAILED });
+  }
+};
+
+export const removePlant = (plantId, aquariumId) => async (dispatch) => {
+  const URL = `${root}/api/v1/plants/${plantId}`;
+  try {
+    await axios.delete(URL);
+
+    const data = {
+      aquariumId,
+      plantId,
+    };
+    dispatch({ type: REMOVE_PLANT, payload: data });
+  } catch (error) {
+    dispatch({ type: REQUEST_FAILED });
+  }
+};
+
+export const removeLivestock = (livestockId, aquariumId) => async (
+  dispatch
+) => {
+  const URL = `${root}/api/v1/livestock/${livestockId}`;
+  try {
+    await axios.delete(URL);
+
+    const data = {
+      aquariumId,
+      livestockId,
+    };
+    dispatch({ type: REMOVE_LIVESTOCK, payload: data });
   } catch (error) {
     dispatch({ type: REQUEST_FAILED });
   }

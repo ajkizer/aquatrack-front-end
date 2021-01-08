@@ -7,6 +7,8 @@ import {
   addPlant,
   editLivestock,
   editPlant,
+  removeLivestock,
+  removePlant,
 } from "../../../redux/actions/aquariums";
 import PropTypes from "prop-types";
 
@@ -20,6 +22,8 @@ const Inventory = ({
   aquariumId,
   editLivestock,
   editPlant,
+  removeLivestock,
+  removePlant,
 }) => {
   console.log(type, data);
   let variant;
@@ -53,6 +57,7 @@ const Inventory = ({
                 key={idx}
                 submit={submitAction}
                 btnvariant={variant}
+                deleteFn={type === "livestock" ? removeLivestock : removePlant}
               />
             ))
           )}
@@ -67,6 +72,8 @@ Inventory.propTypes = {
   addPlant: PropTypes.func.isRequired,
   editLivestock: PropTypes.func.isRequired,
   editPlant: PropTypes.func.isRequired,
+  removePlant: PropTypes.func.isRequired,
+  removeLivestock: PropTypes.func.isRequired,
 };
 
 export default connect(null, {
@@ -74,4 +81,6 @@ export default connect(null, {
   addPlant,
   editLivestock,
   editPlant,
+  removeLivestock,
+  removePlant,
 })(Inventory);

@@ -9,6 +9,8 @@ import {
   EDIT_LIVESTOCK,
   ADD_MAINTENANCE_EVENT,
   EDIT_PLANT,
+  REMOVE_PLANT,
+  REMOVE_LIVESTOCK,
 } from "../constants/aquariums";
 
 const initialState = {
@@ -117,6 +119,41 @@ export default function (state = initialState, action) {
               price: payload.data.price,
             },
             ...state.plants[payload.data.aquarium].slice(updateIndex + 1),
+          ],
+        },
+      };
+    }
+
+    case REMOVE_PLANT: {
+      const removeIndex = state.plants[payload.aquariumId]
+        .map((item) => item._id)
+        .indexOf(payload.plantId);
+
+      return {
+        ...state,
+        plants: {
+          ...state.plants,
+          [payload.aquariumId]: [
+            ...state.plants[payload.aquariumId].slice(0, removeIndex),
+            ...state.plants[payload.aquariumId].slice(removeIndex + 1),
+          ],
+        },
+      };
+    }
+
+    case REMOVE_LIVESTOCK: {
+      const removeIndex = state.livestock[payload.aquariumId]
+        .map((item) => item._id)
+        .indexOf(payload.livestockId);
+
+      console.log(state.livestock[payload.aquariumId]);
+      return {
+        ...state,
+        livestock: {
+          ...state.livestock,
+          [payload.aquariumId]: [
+            ...state.livestock[payload.aquariumId].slice(0, removeIndex),
+            ...state.livestock[payload.aquariumId].slice(removeIndex + 1),
           ],
         },
       };

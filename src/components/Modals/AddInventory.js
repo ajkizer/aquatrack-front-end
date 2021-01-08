@@ -7,13 +7,14 @@ const AddInventory = ({ aquariumId, submit, property }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    price: 1.99,
     quantity: 1,
   });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const { name, description, quantity } = formData;
+  const { name, description, quantity, price } = formData;
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -56,6 +57,15 @@ const AddInventory = ({ aquariumId, submit, property }) => {
                 type="text"
                 placeholder="Enter Quantity"
                 value={quantity}
+                onChange={(e) => changeHandler(e)}
+              />
+            </Form.Group>
+            <Form.Group controlId={`addAquariumSize`}>
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                name="price"
+                type="text"
+                value={price}
                 onChange={(e) => changeHandler(e)}
               />
             </Form.Group>

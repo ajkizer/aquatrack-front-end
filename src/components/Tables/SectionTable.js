@@ -5,7 +5,7 @@ import { Table, Col, Row } from "react-bootstrap";
 const SectionTable = ({ aquariumId, aquariumName, route, fields, limit }) => {
   const [responseData, setResponseData] = useState([]);
   const [page, setPage] = useState(1);
-  const [flag] = useState(false);
+  const [flag, setFlag] = useState(false);
 
   if (!limit || limit.length === 0) {
     limit = 5;
@@ -28,7 +28,15 @@ const SectionTable = ({ aquariumId, aquariumName, route, fields, limit }) => {
         <>
           <Row>
             <Col xs={{ span: 6 }}>
-              <p className="_text-subtitle skinny">{aquariumName}</p>
+              <p className="_text-subtitle skinny">
+                {aquariumName}
+                <span
+                  className="_text-small ml-2"
+                  onClick={() => setFlag(!flag)}
+                >
+                  <i className="fas fa-redo"></i>
+                </span>
+              </p>
             </Col>
           </Row>
           <Table size="sm" className="light-box-shadow" striped bordered hover>

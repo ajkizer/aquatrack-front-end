@@ -79,9 +79,9 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-  window.location.href = "/";
   try {
     dispatch({ type: LOGOUT });
+    // window.location.href = "/";
   } catch (error) {
     dispatch({ type: LOGOUT_FAIL });
   }

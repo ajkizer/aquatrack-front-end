@@ -12,44 +12,49 @@ import WaterChanges from "../../components/Sections/WaterChanges";
 import ParameterChecks from "../../components/Sections/ParameterChecks";
 import MaintenanceTasks from "../../components/Sections/MaintenanceTasks";
 
-const Dashboard = ({ getAquariums }) => {
+const Dashboard = ({ getAquariums, loadUser, loading }) => {
   useEffect(() => {
     loadUser();
     getAquariums();
   }, []);
   return (
     <Container className="pt-4">
-      <Tabs defaultActiveKey="aquariums" id="dashboard-tabs">
-        <Tab eventKey="aquariums" title="Aquariums">
-          <AquariumsGeneral />
-        </Tab>
-        <Tab eventKey="maintenance" title="Maintenance">
-          <Maintenance />
-        </Tab>
-        <Tab eventKey="inventory" title="Inventory">
-          <Inventory />
-        </Tab>
-        <Tab eventKey="waterchanges" title="Water Changes">
-          <WaterChanges />
-        </Tab>
-        <Tab eventKey="parameters" title="Parameters">
-          <ParameterChecks />
-        </Tab>
-        <Tab eventKey="generalMaintenance" title="Maintenance Tasks">
-          <MaintenanceTasks />
-        </Tab>
-      </Tabs>
+      {!loading && (
+        <Tabs defaultActiveKey="aquariums" id="dashboard-tabs">
+          <Tab eventKey="aquariums" title="Aquariums">
+            <AquariumsGeneral />
+          </Tab>
+          <Tab eventKey="maintenance" title="Maintenance">
+            <Maintenance />
+          </Tab>
+          <Tab eventKey="inventory" title="Inventory">
+            <Inventory />
+          </Tab>
+          <Tab eventKey="waterchanges" title="Water Changes">
+            <WaterChanges />
+          </Tab>
+          <Tab eventKey="parameters" title="Parameters">
+            <ParameterChecks />
+          </Tab>
+          <Tab eventKey="generalMaintenance" title="Maintenance Tasks">
+            <MaintenanceTasks />
+          </Tab>
+        </Tabs>
+      )}
     </Container>
   );
 };
 
 Dashboard.propTypes = {
   getAquariums: PropTypes.func.isRequired,
-
   loadUser: PropTypes.func.isRequired,
 };
 
-export default connect(null, {
+const mapStateToProps = (state) => ({
+  loading: state.aquariums.loading,
+});
+
+export default connect(mapStateToProps, {
   getAquariums,
   loadUser,
 })(Dashboard);

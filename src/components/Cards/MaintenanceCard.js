@@ -30,9 +30,15 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
 
     let daysSince = calculateDaysSince(date);
 
-    if (daysSince > reminder) {
+    console.log(daysSince);
+
+    console.log({ date, reminder });
+
+    if (daysSince >= reminder) {
       return true;
     }
+
+    console.log(daysSince > reminder);
     return false;
   };
 
@@ -52,17 +58,26 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
   const daysSince = {
     waterchange: calculateDaysSince(aquarium.lastWaterchange),
     parameterCheck: calculateDaysSince(aquarium.lastParameterCheck),
-    maintenance: calculateDaysSince(aquarium.lastMaintenance),
+    maintenance: calculateDaysSince(
+      aquarium.lastMaintenance,
+      aquarium.maintenanceReminder
+    ),
   };
 
   const wc = {
     text: generateReminderText(daysSince.waterchange),
-    due: checkIfMaintenanceDue(aquarium.lastWaterchange),
+    due: checkIfMaintenanceDue(
+      aquarium.lastWaterchange,
+      aquarium.waterchangeReminder
+    ),
   };
 
   const pc = {
     text: generateReminderText(daysSince.parameterCheck),
-    due: checkIfMaintenanceDue(aquarium.lastParameterCheck),
+    due: checkIfMaintenanceDue(
+      aquarium.lastParameterCheck,
+      aquarium.parameterCheckReminder
+    ),
   };
   const mt = {
     text: generateReminderText(daysSince.maintenance),

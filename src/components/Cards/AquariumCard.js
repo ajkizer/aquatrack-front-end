@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Inventory from "./Card-Sections/Inventory";
 import EditAquarium from "../Modals/EditAquarium";
 import DeleteAquariums from "../Modals/DeleteAquariums";
+import Reminders from "./Card-Sections/Reminders";
 
 const AquariumCard = ({ aquarium, livestock, plants }) => {
   return (
@@ -26,16 +27,13 @@ const AquariumCard = ({ aquarium, livestock, plants }) => {
           <Card.Subtitle></Card.Subtitle>
         </Card.Header>
         <Card.Body>
-          <Card.Text className="_text-medium">Size</Card.Text>
-          <Card.Text className="_text-small mb-4">
-            {aquarium.size} gallons
-          </Card.Text>
           <Inventory
             type="livestock"
             data={livestock}
             aquariumId={aquarium._id}
           />
           <Inventory type="plants" data={plants} aquariumId={aquarium._id} />
+          <Reminders />
         </Card.Body>
       </Card>
     </Col>

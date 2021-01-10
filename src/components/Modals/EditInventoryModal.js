@@ -24,6 +24,34 @@ const EditInventory = ({ item, submit, btnvariant, deleteFn }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const subtractQuantity = (amount, type) => {
+    const minValue = type === "price" ? 0.09 : 1;
+    if (formData[type] <= amount) {
+      setFormData({ ...formData, [type]: minValue });
+      return;
+    }
+
+    let newData = formData[type] - amount;
+    if (type === "price") {
+      let num = formData[type] * 1;
+      const sum = num - amount;
+      newData = sum.toFixed(2);
+    }
+
+    setFormData({ ...formData, [type]: newData });
+  };
+
+  const addQuantity = (amount, type) => {
+    let newData = formData[type] + amount;
+    if (type === "price") {
+      let num = formData[type] * 1;
+      const sum = num + amount;
+      newData = sum.toFixed(2);
+    }
+
+    setFormData({ ...formData, [type]: newData });
+  };
+
   const { name, quantity, price, description } = formData;
   return (
     <>
@@ -40,46 +68,91 @@ const EditInventory = ({ item, submit, btnvariant, deleteFn }) => {
         <Modal.Header closeButton>
           <Modal.Title>Edit Item </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="text-center">
           <Form onSubmit={(e) => handleSubmit(e)}>
-            <Form.Group controlId={`addAquariumName`}>
+            <Form.Group controlId={`editQuantity`}>
+              <Form.Label>Quantity</Form.Label>
+              <Form.Text className="d-flex align-items-center justify-content-center">
+                <span
+                  onClick={() => subtractQuantity(10, "quantity")}
+                  className="m-1 _text-subtitle mr-4 semi-bold pointer"
+                >
+                  -
+                </span>
+                <small
+                  onClick={() => subtractQuantity(1, "quantity")}
+                  className="m-1 _text-medium pointer mr-4"
+                >
+                  -
+                </small>
+                <h3 className="m-2 _text-subtitle">{quantity}</h3>
+
+                <small
+                  onClick={() => addQuantity(1, "quantity")}
+                  className="m-1 _text-medium ml-4 pointer"
+                >
+                  +
+                </small>
+
+                <span
+                  onClick={() => addQuantity(10, "quantity")}
+                  className="m-1 _text-subtitle ml-4 semi-bold pointer mt-2"
+                >
+                  +
+                </span>
+              </Form.Text>
+            </Form.Group>
+            <Form.Group controlId={`addAquariumSize`}>
+              <Form.Label>Price</Form.Label>
+              <Form.Text className="d-flex align-items-center justify-content-center">
+                <span
+                  onClick={() => subtractQuantity(1.0, "price")}
+                  className="m-1 mr-4 _text-subtitle semi-bold pointer"
+                >
+                  -
+                </span>
+                <small
+                  onClick={() => subtractQuantity(0.1, "price")}
+                  className="m-1 mr-4 _text-medium pointer"
+                >
+                  -
+                </small>
+                <h3 className="_text-subtitle">${price}</h3>
+
+                <small
+                  onClick={() => addQuantity(0.1, "price")}
+                  className="m-1 ml-4 _text-medium pointer"
+                >
+                  +
+                </small>
+
+                <span
+                  onClick={() => addQuantity(1.0, "price")}
+                  className="m-1 ml-4 _text-subtitle semi-bold pointer mt-2"
+                >
+                  +
+                </span>
+              </Form.Text>
+            </Form.Group>
+            <Form.Group controlId={`editName`} className="text-left">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 name="name"
                 type="text"
-                placeholder="Enter name for this aquarium"
+                placeholder="Enter Name"
                 value={name}
                 onChange={(e) => changeHandler(e)}
               />
             </Form.Group>
-            <Form.Group controlId={`addAquariumSize`}>
-              <Form.Label>Quantity</Form.Label>
-              <Form.Control
-                name="quantity"
-                placeholder="Enter size in gallons"
-                type="text"
-                value={quantity}
-                onChange={(e) => changeHandler(e)}
-              />
-            </Form.Group>
-            <Form.Group controlId={`addAquariumSize`}>
-              <Form.Label>Price</Form.Label>
-              <Form.Control
-                name="price"
-                type="text"
-                value={price}
-                onChange={(e) => changeHandler(e)}
-              />
-            </Form.Group>
-            <Form.Group controlId={`addAquariumDescription`}>
+            <Form.Group controlId={`editDescription`} className="text-left">
               <Form.Label>Description</Form.Label>
               <Form.Control
                 name="description"
-                placeholder="Enter description"
                 type="text"
                 as="textarea"
-                value={description}
+                placeholder="Description"
                 onChange={(e) => changeHandler(e)}
+                value={description}
               />
             </Form.Group>
             <Button variant="primary" type="submit">

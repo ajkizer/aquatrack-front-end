@@ -53,10 +53,22 @@ h6 {
   opacity: 0.9;
 }
 
+.outline {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  opacity: 0.8;
+  border-radius: 3px;
+}
+
+.outline:hover {
+  background: black;
+  color: white;
+}
+
 p,
-span {
+span,
+label {
   font-family: "Montserrat", sans-serif;
-  opacity: 0.9;
+  opacity: 0.8;
   color: #282c34;
 }
 
@@ -89,7 +101,7 @@ span {
 }
 
 .bold {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .pointer:hover {

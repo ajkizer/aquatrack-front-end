@@ -5,10 +5,31 @@ const AddAquarium = ({ addAquarium }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    size: "",
     description: "",
+    size: 1,
+    parameterCheckReminder: 7,
+    waterchangeReminder: 7,
+    generalMaintenanceReminder: 7,
   });
 
+  const {
+    name,
+    description,
+    waterchangeReminder,
+    parameterCheckReminder,
+    generalMaintenanceReminder,
+  } = formData;
+
+  const reminderOptions = [1, 3, 5, 7, 14, 21, 28];
+  const reminderText = [
+    "Daily",
+    "Every 3 Days",
+    "Every 5 Days",
+    "Weekly",
+    "Every 2 Weeks",
+    "Every 3 Weeks",
+    "Once a Month",
+  ];
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -21,7 +42,6 @@ const AddAquarium = ({ addAquarium }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const { name, size, description } = formData;
   return (
     <>
       <span className="text-primary" onClick={handleShow}>
@@ -35,7 +55,8 @@ const AddAquarium = ({ addAquarium }) => {
         <Modal.Body>
           <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Group controlId={`addAquariumName`}>
-              <Form.Label>Name</Form.Label>
+              <p className="_text-subtitle m-0">Info</p>
+              <Form.Label className="semi-bold">Name</Form.Label>
               <Form.Control
                 name="name"
                 type="text"
@@ -44,18 +65,8 @@ const AddAquarium = ({ addAquarium }) => {
                 onChange={(e) => changeHandler(e)}
               />
             </Form.Group>
-            <Form.Group controlId={`addAquariumSize`}>
-              <Form.Label>Size</Form.Label>
-              <Form.Control
-                name="size"
-                placeholder="Enter size in gallons"
-                type="text"
-                value={size}
-                onChange={(e) => changeHandler(e)}
-              />
-            </Form.Group>
             <Form.Group controlId={`addAquariumDescription`}>
-              <Form.Label>Description</Form.Label>
+              <Form.Label className="semi-bold">Description</Form.Label>
               <Form.Control
                 name="description"
                 placeholder="Enter description"
@@ -64,6 +75,67 @@ const AddAquarium = ({ addAquarium }) => {
                 value={description}
                 onChange={(e) => changeHandler(e)}
               />
+            </Form.Group>
+            <p className="_text-subtitle m-0 pt-3">Maintenance</p>
+            <Form.Group controlId={`addAquariumDescription`}>
+              <Form.Label className="semi-bold">
+                Water Change Schedule
+              </Form.Label>
+              <Form.Control
+                name="waterchangeReminder"
+                type="text"
+                as="select"
+                value={waterchangeReminder}
+                onChange={(e) => changeHandler(e)}
+              >
+                {reminderOptions.map((option, index) => (
+                  <option key={`waterchangeReminder${option}`} value={option}>
+                    {reminderText[index]}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId={`addAquariumDescription`}>
+              <Form.Label className="semi-bold">
+                Parameter Check Schedule
+              </Form.Label>
+              <Form.Control
+                name="parameterCheckReminder"
+                type="text"
+                as="select"
+                value={parameterCheckReminder}
+                onChange={(e) => changeHandler(e)}
+              >
+                {reminderOptions.map((option, index) => (
+                  <option
+                    key={`parameterCheckReminder${option}`}
+                    value={option}
+                  >
+                    {reminderText[index]}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId={`addAquariumDescription`}>
+              <Form.Label className="semi-bold">
+                General Maintenance Schedule
+              </Form.Label>
+              <Form.Control
+                name="generalMaintenanceReminder"
+                type="text"
+                as="select"
+                value={generalMaintenanceReminder}
+                onChange={(e) => changeHandler(e)}
+              >
+                {reminderOptions.map((option, index) => (
+                  <option
+                    key={`generalMaintenanceReminder${option}`}
+                    value={option}
+                  >
+                    {reminderText[index]}
+                  </option>
+                ))}
+              </Form.Control>
             </Form.Group>
             <Button variant="primary" type="submit">
               Save Changes

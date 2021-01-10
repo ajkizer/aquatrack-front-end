@@ -38,7 +38,14 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const { name, size, description, waterchangeReminder } = formData;
+  const {
+    name,
+
+    description,
+    waterchangeReminder,
+    parameterCheckReminder,
+    generalMaintenanceReminder,
+  } = formData;
   return (
     <>
       <Button
@@ -56,7 +63,8 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
         <Modal.Body>
           <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Group controlId={`addAquariumName`}>
-              <Form.Label>Name</Form.Label>
+              <p className="_text-subtitle m-0">Info</p>
+              <Form.Label className="semi-bold">Name</Form.Label>
               <Form.Control
                 name="name"
                 type="text"
@@ -65,18 +73,8 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
                 onChange={(e) => changeHandler(e)}
               />
             </Form.Group>
-            <Form.Group controlId={`addAquariumSize`}>
-              <Form.Label>Size</Form.Label>
-              <Form.Control
-                name="size"
-                placeholder="Enter size in gallons"
-                type="text"
-                value={size}
-                onChange={(e) => changeHandler(e)}
-              />
-            </Form.Group>
             <Form.Group controlId={`addAquariumDescription`}>
-              <Form.Label>Description</Form.Label>
+              <Form.Label className="semi-bold">Description</Form.Label>
               <Form.Control
                 name="description"
                 placeholder="Enter description"
@@ -86,8 +84,11 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
                 onChange={(e) => changeHandler(e)}
               />
             </Form.Group>
+            <p className="_text-subtitle m-0 pt-3">Maintenance</p>
             <Form.Group controlId={`addAquariumDescription`}>
-              <Form.Label>Water Change Schedule</Form.Label>
+              <Form.Label className="semi-bold">
+                Water Change Schedule
+              </Form.Label>
               <Form.Control
                 name="waterchangeReminder"
                 type="text"
@@ -97,6 +98,48 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
               >
                 {reminderOptions.map((option, index) => (
                   <option key={`waterchangeReminder${option}`} value={option}>
+                    {reminderText[index]}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId={`addAquariumDescription`}>
+              <Form.Label className="semi-bold">
+                Parameter Check Schedule
+              </Form.Label>
+              <Form.Control
+                name="parameterCheckReminder"
+                type="text"
+                as="select"
+                value={parameterCheckReminder}
+                onChange={(e) => changeHandler(e)}
+              >
+                {reminderOptions.map((option, index) => (
+                  <option
+                    key={`parameterCheckReminder${option}`}
+                    value={option}
+                  >
+                    {reminderText[index]}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId={`addAquariumDescription`}>
+              <Form.Label className="semi-bold">
+                General Maintenance Schedule
+              </Form.Label>
+              <Form.Control
+                name="generalMaintenanceReminder"
+                type="text"
+                as="select"
+                value={generalMaintenanceReminder}
+                onChange={(e) => changeHandler(e)}
+              >
+                {reminderOptions.map((option, index) => (
+                  <option
+                    key={`generalMaintenanceReminder${option}`}
+                    value={option}
+                  >
                     {reminderText[index]}
                   </option>
                 ))}

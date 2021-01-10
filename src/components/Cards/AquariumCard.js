@@ -33,7 +33,6 @@ const AquariumCard = ({ aquarium, livestock, plants }) => {
             aquariumId={aquarium._id}
           />
           <Inventory type="plants" data={plants} aquariumId={aquarium._id} />
-          <Reminders />
         </Card.Body>
       </Card>
     </Col>

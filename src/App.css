@@ -117,5 +117,12 @@ label {
 }
 
 .info-text {
-  opacity: 0.6;
+  opacity: 0.8;
+  letter-spacing: 0;
+}
+
+.description {
+  line-height: 1;
+  font-size: 1rem;
+  font-weight: 400;
 }

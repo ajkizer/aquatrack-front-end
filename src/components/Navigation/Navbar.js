@@ -13,7 +13,7 @@ const Navigation = ({ auth, logout }) => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           {auth.isAuthenticated && (
-            <Nav.Link href="#" onClick={() => logout()}>
+            <Nav.Link href="/" onClick={() => logout()}>
               Logout
             </Nav.Link>
           )}

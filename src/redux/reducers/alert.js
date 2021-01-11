@@ -1,7 +1,7 @@
-import { SHOW_ALERT, REMOVE_ALERT } from "../constants/error";
+import { SHOW_ALERT, REMOVE_ALERT } from "../constants/alerts";
 
 const initialState = {
-  showAlert: false,
+  login: false,
   msg: "",
   variant: "",
 };
@@ -13,14 +13,14 @@ export default function (state = initialState, action) {
     case SHOW_ALERT:
       return {
         ...state,
-        showAlert: true,
+        [payload.alert]: true,
         msg: payload.msg,
         variant: payload.variant,
       };
     case REMOVE_ALERT:
       return {
         ...state,
-        showAlert: false,
+        [payload.alert]: false,
         msg: "",
         variant: "",
       };

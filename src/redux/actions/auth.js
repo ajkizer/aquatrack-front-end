@@ -14,7 +14,7 @@ import {
   AUTH_ERROR,
 } from "../constants/auth";
 
-import { handleError } from "./error";
+import { handleAlert } from "./alerts";
 
 const root = "https://aquatrack-api-v1.herokuapp.com";
 
@@ -73,7 +73,7 @@ export const login = (email, password) => async (dispatch) => {
   } catch (error) {
     const errors = error.response.data.errors;
     if (error.response.status === 401) {
-      dispatch(handleError("Invalid Credentials", "danger"));
+      dispatch(handleAlert("Invalid Credentials", "danger", "login"));
     }
     if (errors) {
       errors.forEach((error) => console.log(error));

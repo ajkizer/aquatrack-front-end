@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 
 import { login } from "../../redux/actions/auth";
 import Register from "./Register";
+import AlertBar from "../Alerts/Alert";
 import styles from "./auth.module.css";
 
 const Login = ({ login, isAuthenticated }) => {
@@ -43,6 +44,7 @@ const Login = ({ login, isAuthenticated }) => {
       >
         <Card className={styles.loginForm}>
           <Form onSubmit={(e) => onSubmit(e)}>
+            <AlertBar />
             <Form.Group controlId="loginFormEmail">
               <Form.Control
                 className={styles.input}

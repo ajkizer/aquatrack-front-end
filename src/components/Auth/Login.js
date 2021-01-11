@@ -6,11 +6,12 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { login } from "../../redux/actions/auth";
+import { handleAlert } from "../../redux/actions/alerts";
 import Register from "./Register";
 import AlertBar from "../Alerts/Alert";
 import styles from "./auth.module.css";
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, loginAlert, isAuthenticated, handleAlert }) => {
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
@@ -27,7 +28,9 @@ const Login = ({ login, isAuthenticated }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+    if (email.length === 0 || password.length === 0) {
+      handleAlert("Email and password are required", "danger", "loginAlert");
+    }
     login(email, password);
   };
 
@@ -44,7 +47,7 @@ const Login = ({ login, isAuthenticated }) => {
       >
         <Card className={styles.loginForm}>
           <Form onSubmit={(e) => onSubmit(e)}>
-            <AlertBar />
+            {loginAlert && <AlertBar />}
             <Form.Group controlId="loginFormEmail">
               <Form.Control
                 className={styles.input}
@@ -72,9 +75,9 @@ const Login = ({ login, isAuthenticated }) => {
               <Button className={styles.btn} type="submit">
                 Login
               </Button>
-              <Register />
             </div>
           </Form>
+          <Register />
         </Card>
       </Col>
     </Row>
@@ -84,10 +87,12 @@ const Login = ({ login, isAuthenticated }) => {
 Login.propTypes = {
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  handleAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  loginAlert: state.alert.loginAlert,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, handleAlert })(Login);

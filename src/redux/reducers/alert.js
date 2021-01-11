@@ -1,7 +1,9 @@
 import { SHOW_ALERT, REMOVE_ALERT } from "../constants/alerts";
 
 const initialState = {
-  login: false,
+  loginAlert: false,
+  registerAlert: false,
+  addAquariumAlert: false,
   msg: "",
   variant: "",
 };
@@ -20,7 +22,7 @@ export default function (state = initialState, action) {
     case REMOVE_ALERT:
       return {
         ...state,
-        [payload.alert]: false,
+        [payload]: false,
         msg: "",
         variant: "",
       };

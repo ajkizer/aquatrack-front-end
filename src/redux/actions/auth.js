@@ -47,7 +47,15 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.errors;
-
+    if (error.response.status === 400) {
+      dispatch(
+        handleAlert(
+          "Username or Email already in use",
+          "danger",
+          "registerAlert"
+        )
+      );
+    }
     if (errors) {
       errors.forEach((error) => console.log(error));
     }
@@ -73,7 +81,7 @@ export const login = (email, password) => async (dispatch) => {
   } catch (error) {
     const errors = error.response.data.errors;
     if (error.response.status === 401) {
-      dispatch(handleAlert("Invalid Credentials", "danger", "login"));
+      dispatch(handleAlert("Invalid Credentials", "danger", "loginAlert"));
     }
     if (errors) {
       errors.forEach((error) => console.log(error));

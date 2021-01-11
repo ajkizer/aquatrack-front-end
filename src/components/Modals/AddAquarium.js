@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import { handleAlert } from "../../redux/actions/alerts";
 
-const AddAquarium = ({ addAquarium }) => {
+import AlertBar from "../../components/Alerts/Alert";
+
+const AddAquarium = ({ addAquarium, handleAlert, addAquariumAlert }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -35,6 +39,21 @@ const AddAquarium = ({ addAquarium }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    let fieldEmpty = false;
+    Object.keys(formData).map((item) => {
+      if (formData[item].length === 0) {
+        fieldEmpty = true;
+      }
+    });
+
+    if (fieldEmpty) {
+      return handleAlert(
+        "Please fill out all fields",
+        "danger",
+        "addAquariumAlert"
+      );
+    }
     addAquarium(formData);
     handleClose();
   };
@@ -54,9 +73,10 @@ const AddAquarium = ({ addAquarium }) => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={(e) => handleSubmit(e)}>
+            {addAquariumAlert && <AlertBar />}
             <Form.Group controlId={`addAquariumName`}>
-              <p className="_text-subtitle m-0">Info</p>
-              <Form.Label className="semi-bold">Name</Form.Label>
+              <p className="_text-medium semi-bold m-0">Info</p>
+              <Form.Label className="mt-2">Name</Form.Label>
               <Form.Control
                 name="name"
                 type="text"
@@ -66,7 +86,7 @@ const AddAquarium = ({ addAquarium }) => {
               />
             </Form.Group>
             <Form.Group controlId={`addAquariumDescription`}>
-              <Form.Label className="semi-bold">Description</Form.Label>
+              <Form.Label>Description</Form.Label>
               <Form.Control
                 name="description"
                 placeholder="Enter description"
@@ -76,11 +96,9 @@ const AddAquarium = ({ addAquarium }) => {
                 onChange={(e) => changeHandler(e)}
               />
             </Form.Group>
-            <p className="_text-subtitle m-0 pt-3">Maintenance</p>
+            <p className="_text-medium bold m-0 pt-3">Maintenance</p>
             <Form.Group controlId={`addAquariumDescription`}>
-              <Form.Label className="semi-bold">
-                Water Change Schedule
-              </Form.Label>
+              <Form.Label className="mt-2">Water Change Schedule</Form.Label>
               <Form.Control
                 name="waterchangeReminder"
                 type="text"
@@ -96,9 +114,7 @@ const AddAquarium = ({ addAquarium }) => {
               </Form.Control>
             </Form.Group>
             <Form.Group controlId={`addAquariumDescription`}>
-              <Form.Label className="semi-bold">
-                Parameter Check Schedule
-              </Form.Label>
+              <Form.Label>Parameter Check Schedule</Form.Label>
               <Form.Control
                 name="parameterCheckReminder"
                 type="text"
@@ -117,9 +133,7 @@ const AddAquarium = ({ addAquarium }) => {
               </Form.Control>
             </Form.Group>
             <Form.Group controlId={`addAquariumDescription`}>
-              <Form.Label className="semi-bold">
-                General Maintenance Schedule
-              </Form.Label>
+              <Form.Label>General Maintenance Schedule</Form.Label>
               <Form.Control
                 name="generalMaintenanceReminder"
                 type="text"
@@ -137,7 +151,7 @@ const AddAquarium = ({ addAquarium }) => {
                 ))}
               </Form.Control>
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" className="mt-4" type="submit">
               Save Changes
             </Button>
           </Form>
@@ -147,4 +161,7 @@ const AddAquarium = ({ addAquarium }) => {
   );
 };
 
-export default AddAquarium;
+const mapStateToProps = (state) => ({
+  addAquariumAlert: state.alert.addAquariumAlert,
+});
+export default connect(mapStateToProps, { handleAlert })(AddAquarium);

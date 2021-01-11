@@ -1,7 +1,18 @@
 import React, { useState } from "react";
 import { Modal, Form, Button, Badge } from "react-bootstrap";
+import { connect } from "react-redux";
+import { handleAlert } from "../../redux/actions/alerts";
+import PropTypes from "prop-types";
+import AlertBar from "../../components/Alerts/Alert";
 
-const EditInventory = ({ item, submit, btnvariant, deleteFn }) => {
+const EditInventory = ({
+  item,
+  submit,
+  btnvariant,
+  deleteFn,
+  handleAlert,
+  editInventoryAlert,
+}) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: item.name,
@@ -17,6 +28,20 @@ const EditInventory = ({ item, submit, btnvariant, deleteFn }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let fieldEmpty = false;
+    Object.keys(formData).map((item) => {
+      if (formData[item].length === 0) {
+        fieldEmpty = true;
+      }
+    });
+
+    if (fieldEmpty) {
+      return handleAlert(
+        "Please fill out all fields",
+        "danger",
+        "editInventoryAlert"
+      );
+    }
     submit(formData, item._id);
     handleClose();
   };
@@ -70,6 +95,7 @@ const EditInventory = ({ item, submit, btnvariant, deleteFn }) => {
         </Modal.Header>
         <Modal.Body className="text-center">
           <Form onSubmit={(e) => handleSubmit(e)}>
+            {editInventoryAlert && <AlertBar />}
             <Form.Group controlId={`editQuantity`}>
               <Form.Label>Quantity</Form.Label>
               <Form.Text className="d-flex align-items-center justify-content-center">
@@ -194,4 +220,12 @@ const EditInventory = ({ item, submit, btnvariant, deleteFn }) => {
   );
 };
 
-export default EditInventory;
+EditInventory.propTypes = {
+  handleAlert: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  editInventoryAlert: state.alert.editInventoryAlert,
+});
+
+export default connect(mapStateToProps, { handleAlert })(EditInventory);

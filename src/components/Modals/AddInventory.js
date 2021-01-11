@@ -2,7 +2,18 @@ import React, { useState } from "react";
 
 import { Modal, Form, Button, Col } from "react-bootstrap";
 
-const AddInventory = ({ aquariumId, submit, property }) => {
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { handleAlert } from "../../redux/actions/alerts";
+import AlertBar from "../../components/Alerts/Alert";
+
+const AddInventory = ({
+  aquariumId,
+  submit,
+  property,
+  handleAlert,
+  addInventoryAlert,
+}) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -22,6 +33,20 @@ const AddInventory = ({ aquariumId, submit, property }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    let fieldEmpty = false;
+    Object.keys(formData).map((item) => {
+      if (formData[item].length === 0) {
+        fieldEmpty = true;
+      }
+    });
+
+    if (fieldEmpty) {
+      return handleAlert(
+        "Please fill out all fields",
+        "danger",
+        "addInventoryAlert"
+      );
+    }
     handleClose();
     submit(aquariumId, formData);
   };
@@ -68,6 +93,7 @@ const AddInventory = ({ aquariumId, submit, property }) => {
         <Modal.Body className="text-center">
           <Col>
             <Form onSubmit={(e) => submitHandler(e)}>
+              {addInventoryAlert && <AlertBar />}
               <Form.Group controlId={`add${property}Quantity`}>
                 <Form.Label>Quantity</Form.Label>
                 <Form.Text className="d-flex align-items-center justify-content-center">
@@ -172,4 +198,11 @@ const AddInventory = ({ aquariumId, submit, property }) => {
   );
 };
 
-export default AddInventory;
+AddInventory.propTypes = {
+  handleAlert: PropTypes.func.isRequired,
+};
+const mapStateToProps = (state) => ({
+  addInventoryAlert: state.alert.addInventoryAlert,
+});
+
+export default connect(mapStateToProps, { handleAlert })(AddInventory);

@@ -14,6 +14,7 @@ import {
   REMOVE_PLANT,
 } from "../constants/aquariums";
 
+import { handleAlert } from "./alerts";
 import { jsonHeader } from "../../utils/jsonHeader";
 
 const root = "https://aquatrack-api-v1.herokuapp.com";
@@ -66,6 +67,7 @@ export const addAquarium = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(URL, formData, jsonHeader);
 
+    dispatch(handleAlert("Added Aquarium", "success", "aquariumSectionAlert"));
     dispatch({ type: ADD_AQUARIUM, payload: res.data });
   } catch (error) {
     dispatch({ type: REQUEST_FAILED });
@@ -103,6 +105,9 @@ export const addLivestock = (aquariumId, formData) => async (dispatch) => {
       data: res.data.data,
       _id: aquariumId,
     };
+    dispatch(
+      handleAlert("Added Livestock Item", "success", "aquariumSectionAlert")
+    );
 
     dispatch({ type: ADD_LIVESTOCK, payload: payloadObj });
   } catch (error) {
@@ -122,7 +127,7 @@ export const addPlant = (aquariumId, formData) => async (dispatch) => {
     };
 
     console.log(payloadObj);
-
+    dispatch(handleAlert("Added Plant", "success", "aquariumSectionAlert"));
     dispatch({ type: ADD_PLANT, payload: payloadObj });
   } catch (error) {
     dispatch({ type: REQUEST_FAILED });

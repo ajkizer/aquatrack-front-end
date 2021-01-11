@@ -4,6 +4,7 @@ import { Row } from "react-bootstrap";
 import AquariumCard from "../Cards/AquariumCard";
 import AddAquarium from "../Modals/AddAquarium";
 import Header from "../Typography/Header";
+import AlertBar from "../Alerts/Alert";
 
 import { addAquarium } from "../../redux/actions/aquariums";
 
@@ -13,6 +14,7 @@ const AquariumsGeneral = ({
   plants,
   addAquarium,
   loading,
+  aquariumSectionAlert,
 }) => {
   return (
     <>
@@ -23,7 +25,7 @@ const AquariumsGeneral = ({
           aquariums . . .
         </p>
       </Header>
-
+      {aquariumSectionAlert && <AlertBar />}
       {loading ? (
         "loading"
       ) : (
@@ -48,6 +50,7 @@ const mapStateToProps = (state) => ({
   livestock: state.aquariums.livestock,
   plants: state.aquariums.plants,
   loading: state.aquariums.loading,
+  aquariumSectionAlert: state.alert.aquariumSectionAlert,
 });
 
 export default connect(mapStateToProps, { addAquarium })(AquariumsGeneral);

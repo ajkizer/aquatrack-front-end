@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
+import AlertBar from "../Alerts/Alert";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { editAquarium } from "../../redux/actions/aquariums";
+import { handleAlert } from "../../redux/actions/alerts";
 
-const EditAquarium = ({ aquarium, editAquarium }) => {
+const EditAquarium = ({
+  aquarium,
+  editAquarium,
+  handleAlert,
+  editAquariumAlert,
+}) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: aquarium.name,
@@ -31,6 +38,20 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let fieldEmpty = false;
+    Object.keys(formData).map((item) => {
+      if (formData[item].length === 0) {
+        fieldEmpty = true;
+      }
+    });
+
+    if (fieldEmpty) {
+      return handleAlert(
+        "Please fill out all fields",
+        "danger",
+        "editAquariumAlert"
+      );
+    }
     editAquarium(formData, aquarium._id);
     handleClose();
   };
@@ -40,7 +61,6 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
 
   const {
     name,
-
     description,
     waterchangeReminder,
     parameterCheckReminder,
@@ -62,6 +82,7 @@ const EditAquarium = ({ aquarium, editAquarium }) => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={(e) => handleSubmit(e)}>
+            {editAquariumAlert && <AlertBar />}
             <Form.Group controlId={`addAquariumName`}>
               <p className="_text-subtitle m-0">Info</p>
               <Form.Label className="semi-bold">Name</Form.Label>
@@ -159,4 +180,10 @@ EditAquarium.propTypes = {
   editAquarium: PropTypes.func.isRequired,
 };
 
-export default connect(null, { editAquarium })(EditAquarium);
+const mapStateToProps = (state) => ({
+  editAquariumAlert: state.alert.editAquariumAlert,
+});
+
+export default connect(mapStateToProps, { editAquarium, handleAlert })(
+  EditAquarium
+);

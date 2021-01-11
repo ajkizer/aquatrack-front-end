@@ -14,6 +14,8 @@ import {
   AUTH_ERROR,
 } from "../constants/auth";
 
+import { handleError } from "./error";
+
 const root = "https://aquatrack-api-v1.herokuapp.com";
 
 export const loadUser = () => async (dispatch) => {
@@ -65,12 +67,14 @@ export const login = (email, password) => async (dispatch) => {
 
   try {
     dispatch({ type: LOGIN_START });
-    console.log(`${root}/api/v1/auth/login`);
     const res = await axios.post(`${root}/api/v1/auth/login`, body, config);
     dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.errors;
+    if (error.response.status === 401) {
+      dispatch(handleError("Invalid Credentials", "danger"));
+    }
     if (errors) {
       errors.forEach((error) => console.log(error));
     }

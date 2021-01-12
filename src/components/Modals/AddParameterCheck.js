@@ -4,10 +4,10 @@ import { Modal, Button, Form } from "react-bootstrap";
 const AddParameterCheck = ({ addMaintenanceEvent, aquariumId }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
-    ammonia: "",
-    nitrate: "",
-    nitrite: "",
-    pH: "",
+    ammonia: 0,
+    nitrate: 0,
+    nitrite: 0,
+    pH: 7.0,
     notes: "",
   });
 
@@ -69,7 +69,7 @@ const AddParameterCheck = ({ addMaintenanceEvent, aquariumId }) => {
                 <option></option>
                 {ammoniaOptions.map((option) => (
                   <option key={`ammonia${option}`} value={option}>
-                    {option}
+                    {option}ppm
                   </option>
                 ))}
               </Form.Control>
@@ -85,7 +85,7 @@ const AddParameterCheck = ({ addMaintenanceEvent, aquariumId }) => {
                 <option></option>
                 {nitrateOptions.map((option) => (
                   <option key={`nitrate${option}`} value={option}>
-                    {option}
+                    {option}ppm
                   </option>
                 ))}
               </Form.Control>
@@ -101,7 +101,7 @@ const AddParameterCheck = ({ addMaintenanceEvent, aquariumId }) => {
                 <option></option>
                 {nitriteOptions.map((option) => (
                   <option key={`nitrite${option}`} value={option}>
-                    {option}
+                    {option}ppm
                   </option>
                 ))}
               </Form.Control>

@@ -126,7 +126,6 @@ export const addPlant = (aquariumId, formData) => async (dispatch) => {
       _id: aquariumId,
     };
 
-    console.log(payloadObj);
     dispatch(handleAlert("Added Plant", "success", "aquariumSectionAlert"));
     dispatch({ type: ADD_PLANT, payload: payloadObj });
   } catch (error) {
@@ -140,13 +139,17 @@ export const addMaintenanceEvent = (aquariumId, formData, type) => async (
   const URL = `${root}/api/v1/aquariums/${aquariumId}/${type}`;
 
   let property;
+  let text;
 
   if (type === "waterchanges") {
     property = "lastWaterchange";
+    text = "Water change added";
   } else if (type === "parameters") {
     property = "lastParameterCheck";
+    text = "Parameter check added";
   } else if (type === "maintenanceTasks") {
     property = "lastMaintenance";
+    text = "General maintenance task added";
   }
 
   try {
@@ -158,7 +161,7 @@ export const addMaintenanceEvent = (aquariumId, formData, type) => async (
       _id: aquariumId,
     };
 
-    console.log(payloadObj);
+    dispatch(handleAlert(text, "success", "maintenanceSectionAlert"));
 
     dispatch({ type: ADD_MAINTENANCE_EVENT, payload: payloadObj });
   } catch (error) {

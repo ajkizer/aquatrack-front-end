@@ -3,16 +3,25 @@ import { connect } from "react-redux";
 import { Row } from "react-bootstrap";
 import MaintenanceCard from "../Cards/MaintenanceCard";
 import Header from "../Typography/Header";
+import AlertBar from "../Alerts/Alert";
 
-const Maintenance = ({ aquariums, livestock, plants, loading }) => {
+const Maintenance = ({
+  aquariums,
+  livestock,
+  plants,
+  loading,
+  maintenanceSectionAlert,
+}) => {
   return (
     <>
       <Header>
-        Maintenance{" "}
+        To Do{" "}
         <p className="info-text _text-medium skinny">
           Perform water changes, parameter checks, and general maintenance...
         </p>
       </Header>
+
+      {maintenanceSectionAlert && <AlertBar />}
 
       {loading ? (
         "loading"
@@ -38,6 +47,7 @@ const mapStateToProps = (state) => ({
   livestock: state.aquariums.livestock,
   plants: state.aquariums.plants,
   loading: state.aquariums.loading,
+  maintenanceSectionAlert: state.alert.maintenanceSectionAlert,
 });
 
 export default connect(mapStateToProps, {})(Maintenance);

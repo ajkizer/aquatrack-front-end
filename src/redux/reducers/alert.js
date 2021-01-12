@@ -8,6 +8,9 @@ const initialState = {
   aquariumSectionAlert: false,
   editInventoryAlert: false,
   addInventoryAlert: false,
+  addWaterchangeAlert: false,
+  addMaintenanceTaskAlert: false,
+  maintenanceSectionAlert: false,
   msg: "",
   variant: "",
 };
@@ -27,6 +30,9 @@ export default function (state = initialState, action) {
         addInventoryAlert: false,
         addInventorySuccess: false,
         editAquariumAlert: false,
+        addWaterchangeAlert: false,
+        maintenanceSectionAlert: false,
+        addMaintenanceTaskAlert: false,
       };
     case SHOW_ALERT:
       return {

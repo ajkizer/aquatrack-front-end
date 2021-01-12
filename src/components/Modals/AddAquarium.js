@@ -63,7 +63,7 @@ const AddAquarium = ({ addAquarium, handleAlert, addAquariumAlert }) => {
 
   return (
     <>
-      <span className="text-primary" onClick={handleShow}>
+      <span className="text-primary pointer" onClick={handleShow}>
         +
       </span>
 

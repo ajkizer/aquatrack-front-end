@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import { connect } from "react-redux";
+import { handleAlert } from "../../redux/actions/alerts";
+import AlertBar from "../Alerts/Alert";
 
-const AddGenMaintenance = ({ addMaintenanceEvent, aquariumId }) => {
+const AddGenMaintenance = ({
+  addMaintenanceEvent,
+  aquariumId,
+  handleAlert,
+  maintenanceTaskAlert,
+}) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     description: "",
@@ -18,6 +26,13 @@ const AddGenMaintenance = ({ addMaintenanceEvent, aquariumId }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (description.length === 0) {
+      return handleAlert(
+        "Please add a description for this task",
+        "danger",
+        "maintenanceTaskAlert"
+      );
+    }
     handleClose();
     addMaintenanceEvent(aquariumId, formData, "maintenanceTasks");
   };
@@ -35,6 +50,7 @@ const AddGenMaintenance = ({ addMaintenanceEvent, aquariumId }) => {
 
         <Modal.Body>
           <Form onSubmit={(e) => submitHandler(e)}>
+            {maintenanceTaskAlert && <AlertBar />}
             <Form.Group controlId={`addMaintenanceDescription`}>
               <Form.Label>Description</Form.Label>
               <Form.Control
@@ -56,4 +72,8 @@ const AddGenMaintenance = ({ addMaintenanceEvent, aquariumId }) => {
   );
 };
 
-export default AddGenMaintenance;
+const mapStateToProps = (state) => ({
+  maintenanceTaskAlert: state.alert.maintenanceTaskAlert,
+});
+
+export default connect(mapStateToProps, { handleAlert })(AddGenMaintenance);

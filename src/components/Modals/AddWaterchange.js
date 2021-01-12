@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import { connect } from "react-redux";
 
 const AddWaterchange = ({ addMaintenanceEvent, aquariumId }) => {
   const [show, setShow] = useState(false);

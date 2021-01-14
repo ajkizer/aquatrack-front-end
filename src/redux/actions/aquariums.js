@@ -100,7 +100,13 @@ export const addLivestock = (aquariumId, formData) => async (dispatch) => {
 
   try {
     const res = await axios.post(URL, formData, jsonHeader);
+    const aquarium = await axios.get(`${root}/api/v1/aquariums/${aquariumId}`);
 
+    console.log(aquarium);
+    res.data.data.aquarium = {
+      _id: res.data.data.aquarium,
+      name: aquarium.data.data.name,
+    };
     const payloadObj = {
       data: res.data.data,
       _id: aquariumId,

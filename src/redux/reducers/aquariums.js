@@ -71,7 +71,7 @@ export default function (state = initialState, action) {
         ...state,
         livestock: {
           ...state.livestock,
-          [payload._id]: [payload.data, ...state.livestock[payload._id]],
+          [payload._id]: [...state.livestock[payload._id], payload.data],
         },
       };
     }
@@ -164,7 +164,7 @@ export default function (state = initialState, action) {
         ...state,
         plants: {
           ...state.plants,
-          [payload._id]: [payload.data, ...state.plants[payload._id]],
+          [payload._id]: [...state.plants[payload._id], payload.data],
         },
       };
     }

@@ -46,7 +46,7 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
     if (daysSince === null) {
       return "None";
     }
-    if (daysSince === 0) {
+    if (daysSince <= 0) {
       return `Today`;
     } else if (daysSince === 1) {
       return `Yesterday`;

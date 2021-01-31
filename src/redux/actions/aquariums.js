@@ -24,6 +24,9 @@ export const getAquariums = () => async (dispatch) => {
     getAquariums: `${root}/api/v1/aquariums`,
     getLivestock: `${root}/api/v1/livestock`,
     getPlants: `${root}/api/v1/plants`,
+    getWaterchanges: `${root}/api/v1/waterchanges`,
+    getParameters: `${root}/api/v1/parameters`,
+    getMaintenance: `${root}/api/v1/maintenanceTasks`,
   };
 
   try {
@@ -32,11 +35,17 @@ export const getAquariums = () => async (dispatch) => {
     const aquariums = await axios.get(URL.getAquariums);
     const livestock = await axios.get(URL.getLivestock);
     const plants = await axios.get(URL.getPlants);
+    const waterchanges = await axios.get(URL.getWaterchanges);
+    const parameters = await axios.get(URL.getParameters);
+    const maintenanceTasks = await axios.get(URL.getMaintenance);
 
     let normalizedData = {
       general: [],
       livestock: {},
       plants: {},
+      waterchanges: {},
+      parameters: {},
+      maintenanceTasks: {},
     };
 
     normalizedData.general = aquariums.data.data;
@@ -48,8 +57,22 @@ export const getAquariums = () => async (dispatch) => {
       let matchingPlants = plants.data.data.filter(
         (plant) => item._id === plant.aquarium._id
       );
+      let matchingWaterchanges = waterchanges.data.data.filter(
+        (waterchange) => item._id === waterchange.aquarium._id
+      );
+
+      let matchingParameters = parameters.data.data.filter(
+        (parameter) => item._id === parameter.aquarium._id
+      );
+
+      let matchingMaintenance = maintenanceTasks.data.data.filter(
+        (task) => item._id === task.aquarium._id
+      );
       normalizedData.livestock[item._id] = matchingLivestock;
       normalizedData.plants[item._id] = matchingPlants;
+      normalizedData.waterchanges[item._id] = matchingWaterchanges;
+      normalizedData.parameters[item._id] = matchingParameters;
+      normalizedData.maintenanceTasks[item._id] = matchingMaintenance;
     });
 
     dispatch({

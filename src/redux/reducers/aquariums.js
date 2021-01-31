@@ -18,6 +18,9 @@ const initialState = {
   general: [],
   livestock: {},
   plants: {},
+  waterchanges: {},
+  parameters: {},
+  maintenanceTasks: {},
 };
 
 export default function (state = initialState, action) {

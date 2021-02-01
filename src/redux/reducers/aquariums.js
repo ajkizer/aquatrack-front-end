@@ -45,7 +45,6 @@ export default function (state = initialState, action) {
       };
     }
     case ADD_AQUARIUM: {
-      console.log(payload);
       return {
         ...state,
         general: [payload.data, ...state.general],
@@ -58,8 +57,6 @@ export default function (state = initialState, action) {
         .map((item) => item._id)
         .indexOf(payload.data._id);
 
-      console.log({ updateIndex });
-      console.log({ payload });
       return {
         ...state,
         general: [
@@ -149,7 +146,6 @@ export default function (state = initialState, action) {
         .map((item) => item._id)
         .indexOf(payload.livestockId);
 
-      console.log(state.livestock[payload.aquariumId]);
       return {
         ...state,
         livestock: {
@@ -171,12 +167,12 @@ export default function (state = initialState, action) {
         },
       };
     }
+
     case ADD_MAINTENANCE_EVENT: {
       const updateIndex = state.general
         .map((item) => item._id)
         .indexOf(payload._id);
 
-      console.log(updateIndex);
       return {
         ...state,
         general: [
@@ -187,6 +183,10 @@ export default function (state = initialState, action) {
           },
           ...state.general.slice(updateIndex + 1),
         ],
+        [payload.type]: {
+          ...state[payload.type],
+          [payload._id]: [payload.data, ...state[payload.type][payload._id]],
+        },
       };
     }
 

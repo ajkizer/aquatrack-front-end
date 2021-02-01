@@ -186,6 +186,7 @@ export const addMaintenanceEvent = (aquariumId, formData, type) => async (
 
     const payloadObj = {
       property: property,
+      type: type,
       data: res.data.data,
       _id: aquariumId,
     };

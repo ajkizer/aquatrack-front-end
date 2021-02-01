@@ -55,11 +55,16 @@ const AddGenMaintenance = ({
               <Form.Label>Description</Form.Label>
               <Form.Control
                 name="description"
-                as="textarea"
+                as="select"
                 placeholder="Describe what you did..."
                 value={description}
                 onChange={(e) => changeHandler(e)}
-              />
+              >
+                <option></option>
+                <option value="Cleaned Glass">Cleaned Glass</option>
+                <option value="Vacuumed Substrate">Vacuumed Substrate</option>
+                <option value="Trimmed Plants">Trimmed Plants</option>
+              </Form.Control>
             </Form.Group>
 
             <Button variant="primary" type="submit">

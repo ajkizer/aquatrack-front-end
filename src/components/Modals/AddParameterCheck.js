@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-const AddParameterCheck = ({ addMaintenanceEvent, aquariumId }) => {
+const AddParameterCheck = ({ addMaintenanceEvent, aquariumId, due }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     ammonia: 0,
@@ -47,7 +47,11 @@ const AddParameterCheck = ({ addMaintenanceEvent, aquariumId }) => {
 
   return (
     <>
-      <Button onClick={handleShow} className="light-box-shadow">
+      <Button
+        onClick={handleShow}
+        variant={due ? "warning" : "primary"}
+        className="light-box-shadow"
+      >
         <i className="fas fa-vial"></i>
       </Button>
 

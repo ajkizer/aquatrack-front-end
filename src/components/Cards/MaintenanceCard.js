@@ -44,7 +44,7 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
 
   const generateReminderText = (daysSince) => {
     if (daysSince === null) {
-      return "None";
+      return "Never";
     }
     if (daysSince <= 0) {
       return `Today`;
@@ -58,10 +58,7 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
   const daysSince = {
     waterchange: calculateDaysSince(aquarium.lastWaterchange),
     parameterCheck: calculateDaysSince(aquarium.lastParameterCheck),
-    maintenance: calculateDaysSince(
-      aquarium.lastMaintenance,
-      aquarium.maintenanceReminder
-    ),
+    maintenance: calculateDaysSince(aquarium.lastMaintenance),
   };
 
   const wc = {
@@ -81,46 +78,35 @@ const MaintenanceCard = ({ aquarium, addMaintenanceEvent }) => {
   };
   const mt = {
     text: generateReminderText(daysSince.maintenance),
-    due: checkIfMaintenanceDue(aquarium.lastMaintenance),
+    due: checkIfMaintenanceDue(
+      aquarium.lastMaintenance,
+      aquarium.maintenanceReminder
+    ),
   };
 
-  const ReminderDue = () => <Badge variant="warning">Due</Badge>;
-
   return (
-    <Col md={{ span: 4 }}>
-      <Card className="light-box-shadow row-spacing__large">
-        <Card.Header>
-          <Card.Title>
-            <h5 className="_text-subtitle skinny">{aquarium.name}</h5>
-          </Card.Title>
-        </Card.Header>
+    <Col xs={{ span: 12 }} md={{ span: 8 }}>
+      <Card className="light-box-shadow mb-2 pl-4 pr-4">
         <Card.Body>
-          <Card.Text className="_text-small mb-1">
-            Water Change <small>{wc.text} </small>
-            {wc.due && <ReminderDue />}
-          </Card.Text>
-          <Card.Text className="_text-small mb-1">
-            Parameter Check <small>{pc.text} </small>
-            {pc.due && <ReminderDue />}
-          </Card.Text>
-          <Card.Text>
-            General Maintenance <small>{mt.text} </small>
-            {mt.due && <ReminderDue />}
-          </Card.Text>
           <Row>
-            <Col xs={{ span: 2 }}>
+            <Col xs={{ span: 6 }}>
+              <h5 className="_text-subtitle skinny">{aquarium.name}</h5>
+            </Col>
+            <Col xs={{ offset: 3, span: 1 }}>
               <AddWaterchange
                 aquariumId={aquarium._id}
                 addMaintenanceEvent={addMaintenanceEvent}
+                due={wc.due}
               />
             </Col>
-            <Col xs={{ span: 2 }}>
+            <Col xs={{ span: 1 }}>
               <AddParameterCheck
                 aquariumId={aquarium._id}
                 addMaintenanceEvent={addMaintenanceEvent}
+                due={pc.due}
               />
             </Col>
-            <Col xs={{ span: 2 }}>
+            <Col xs={{ span: 1 }}>
               <AddGenMaintenance
                 aquariumId={aquarium._id}
                 addMaintenanceEvent={addMaintenanceEvent}

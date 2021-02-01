@@ -25,7 +25,6 @@ const Inventory = ({
   removeLivestock,
   removePlant,
 }) => {
-  console.log(type, data);
   let variant;
   let submitAction;
   if (type === "livestock") {

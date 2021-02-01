@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 
-const AddWaterchange = ({ addMaintenanceEvent, aquariumId }) => {
+const AddWaterchange = ({ addMaintenanceEvent, aquariumId, due }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     percentChange: 50,
@@ -29,7 +29,11 @@ const AddWaterchange = ({ addMaintenanceEvent, aquariumId }) => {
 
   return (
     <>
-      <Button onClick={handleShow} className="light-box-shadow">
+      <Button
+        onClick={handleShow}
+        className="light-box-shadow"
+        variant={due ? "warning" : "primary"}
+      >
         <i className="fas fa-faucet"></i>
       </Button>
 

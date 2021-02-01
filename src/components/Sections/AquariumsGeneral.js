@@ -20,10 +20,6 @@ const AquariumsGeneral = ({
     <>
       <Header>
         Aquariums <AddAquarium addAquarium={addAquarium} />
-        <p className="info-text _text-medium skinny">
-          Set maintenance reminders, add livestock and plants, edit/delete
-          aquariums . . .
-        </p>
       </Header>
       {aquariumSectionAlert && <AlertBar />}
       {loading ? (

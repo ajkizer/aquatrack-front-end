@@ -14,12 +14,7 @@ const Maintenance = ({
 }) => {
   return (
     <>
-      <Header>
-        To Do{" "}
-        <p className="info-text _text-medium skinny">
-          Perform water changes, parameter checks, and general maintenance...
-        </p>
-      </Header>
+      <Header>Perform Maintenance</Header>
 
       {maintenanceSectionAlert && <AlertBar />}
 

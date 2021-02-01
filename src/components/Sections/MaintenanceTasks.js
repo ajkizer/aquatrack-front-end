@@ -64,15 +64,21 @@ const MaintenanceTasks = ({ general, maintenanceTasks }) => {
           </thead>
 
           <tbody>
-            {currentData &&
-              currentData.data.length &&
+            {currentData && currentData.data.length ? (
               currentData.data.map((item, idx) => (
                 <tr>
                   <td className="text-center">{genDate(item.createdAt)}</td>
                   <td className="text-center">{item.description}</td>
                   <td className="text-center">{item.aquarium.name}</td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <tr>
+                <td className="text-center" colSpan={3}>
+                  No History
+                </td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </Col>

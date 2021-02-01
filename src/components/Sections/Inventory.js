@@ -6,6 +6,7 @@ import Header from "../Typography/Header";
 
 const Inventory = ({ aquariums, livestock, plants, addAquarium, loading }) => {
   const [sortProp, setSortProp] = useState("name");
+  const [reversed, toggleReversed] = useState(false);
   const aquariumIds = aquariums.map((item) => item._id).sort();
   const livestockItems = aquariumIds
     .map((id) => livestock[id])
@@ -16,12 +17,23 @@ const Inventory = ({ aquariums, livestock, plants, addAquarium, loading }) => {
 
   const sortDisplay = (items) => {
     if (sortProp === "name") {
+      if (reversed) {
+        return items.flat().sort((a, b) => b.name.localeCompare(a.name));
+      }
       return items.flat().sort((a, b) => a.name.localeCompare(b.name));
     } else if (sortProp === "aquarium") {
+      if (reversed) {
+        return items
+          .flat()
+          .sort((a, b) => b.aquarium.name.localeCompare(a.aquarium.name));
+      }
       return items
         .flat()
         .sort((a, b) => a.aquarium.name.localeCompare(b.aquarium.name));
     } else {
+      if (reversed) {
+        return items.flat().sort((a, b) => b[sortProp] - a[sortProp]);
+      }
       return items.flat().sort((a, b) => a[sortProp] - b[sortProp]);
     }
   };
@@ -31,20 +43,19 @@ const Inventory = ({ aquariums, livestock, plants, addAquarium, loading }) => {
 
   const allDisplay = sortDisplay(livestockDisplay.concat(plantDisplay));
 
+  const handleReverse = () => {
+    toggleReversed(!reversed);
+  };
+
   return (
     <>
-      <Header>
-        Inventory{" "}
-        <p className="info-text _text-medium skinny">
-          View inventory list and values, sort results...
-        </p>
-      </Header>
+      <Header>Inventory</Header>
 
       {loading ? (
         "loading"
       ) : (
         <Tab.Container id="left-tabs-inv" defaultActiveKey="first">
-          <Row className="pt-4">
+          <Row>
             <Col>
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
@@ -61,18 +72,24 @@ const Inventory = ({ aquariums, livestock, plants, addAquarium, loading }) => {
             <Col sm={9}>
               <Tab.Content>
                 <Tab.Pane eventKey="first">
-                  <InventoryTable data={allDisplay} setSortProp={setSortProp} />
+                  <InventoryTable
+                    data={allDisplay}
+                    setSortProp={setSortProp}
+                    handleReverse={handleReverse}
+                  />
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
                   <InventoryTable
                     data={plantDisplay}
                     setSortProp={setSortProp}
+                    handleReverse={handleReverse}
                   />
                 </Tab.Pane>
                 <Tab.Pane eventKey="third">
                   <InventoryTable
                     data={livestockDisplay}
                     setSortProp={setSortProp}
+                    handleReverse={handleReverse}
                   />
                 </Tab.Pane>
               </Tab.Content>

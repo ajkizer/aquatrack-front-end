@@ -67,8 +67,7 @@ const ParameterChecks = ({ general, parameters }) => {
           </thead>
 
           <tbody>
-            {currentData &&
-              currentData.data.length &&
+            {currentData && currentData.data.length ? (
               currentData.data.map((item, idx) => (
                 <tr>
                   <td className="text-center">{genDate(item.createdAt)}</td>
@@ -78,7 +77,14 @@ const ParameterChecks = ({ general, parameters }) => {
                   <td className="text-center">{item.pH}</td>
                   <td className="text-center">{item.aquarium.name}</td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <tr>
+                <td className="text-center" colSpan={6}>
+                  No History
+                </td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </Col>

@@ -36,7 +36,7 @@ const Inventory = ({
   }
 
   return (
-    <div className="mb-4">
+    <div className="mb-2">
       {data && (
         <>
           <Card.Text className="_text-medium text-capitalize mt-2">

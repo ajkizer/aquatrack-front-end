@@ -1,31 +1,49 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 
-const InventoryTable = ({ data, setSortProp }) => {
+const InventoryTable = ({ data, setSortProp, handleReverse }) => {
   return (
     <Table size="sm" striped bordered className="light-box-shadow">
       <thead>
         <tr>
           <th>
             Name{" "}
-            <i className="fas fa-sort" onClick={() => setSortProp("name")}></i>
+            <i
+              className="fas fa-sort"
+              onClick={() => {
+                setSortProp("name");
+                handleReverse();
+              }}
+            ></i>
           </th>
           <th>
             Quantity{" "}
             <i
               className="fas fa-sort"
-              onClick={() => setSortProp("quantity")}
+              onClick={() => {
+                setSortProp("quantity");
+                handleReverse();
+              }}
             ></i>
           </th>
           <th>
             Price{" "}
-            <i className="fas fa-sort" onClick={() => setSortProp("price")}></i>
+            <i
+              className="fas fa-sort"
+              onClick={() => {
+                setSortProp("price");
+                handleReverse();
+              }}
+            ></i>
           </th>
           <th>
             Location{" "}
             <i
               className="fas fa-sort"
-              onClick={() => setSortProp("aquarium")}
+              onClick={() => {
+                setSortProp("aquarium");
+                handleReverse();
+              }}
             ></i>
           </th>
         </tr>

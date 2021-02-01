@@ -15,7 +15,7 @@ const AquariumCard = ({ aquarium, livestock, plants }) => {
             <Col xs={{ span: 9 }}>
               <h5 className="_text-subtitle skinny">{aquarium.name}</h5>{" "}
             </Col>
-            <Col xs={{ offset: 1, span: 2 }}>
+            <Col xs={{ span: 3 }} md={{ offset: 1 }}>
               <EditAquarium aquarium={aquarium} />{" "}
               <DeleteAquariums aquarium={aquarium} />
             </Col>

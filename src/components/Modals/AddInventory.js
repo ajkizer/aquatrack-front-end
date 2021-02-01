@@ -81,8 +81,8 @@ const AddInventory = ({
 
   return (
     <>
-      <span className="_text-small barlow pointer" onClick={handleShow}>
-        +add
+      <span className="text-primary barlow pointer" onClick={handleShow}>
+        +
       </span>
 
       <Modal show={show} onHide={handleClose} className="text-center">

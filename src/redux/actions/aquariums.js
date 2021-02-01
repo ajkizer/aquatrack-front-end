@@ -221,13 +221,13 @@ export const editPlant = (formData, plantId) => async (dispatch) => {
   }
 };
 
-export const removePlant = (plantId, aquariumId) => async (dispatch) => {
+export const removePlant = (plantId, aquarium) => async (dispatch) => {
   const URL = `${root}/api/v1/plants/${plantId}`;
   try {
     await axios.delete(URL);
 
     const data = {
-      aquariumId,
+      aquariumId: aquarium._id,
       plantId,
     };
     dispatch({ type: REMOVE_PLANT, payload: data });
@@ -236,15 +236,13 @@ export const removePlant = (plantId, aquariumId) => async (dispatch) => {
   }
 };
 
-export const removeLivestock = (livestockId, aquariumId) => async (
-  dispatch
-) => {
+export const removeLivestock = (livestockId, aquarium) => async (dispatch) => {
   const URL = `${root}/api/v1/livestock/${livestockId}`;
   try {
     await axios.delete(URL);
 
     const data = {
-      aquariumId,
+      aquariumId: aquarium._id,
       livestockId,
     };
     dispatch({ type: REMOVE_LIVESTOCK, payload: data });

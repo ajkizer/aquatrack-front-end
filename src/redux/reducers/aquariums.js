@@ -142,6 +142,7 @@ export default function (state = initialState, action) {
     }
 
     case REMOVE_LIVESTOCK: {
+      console.log(payload);
       const removeIndex = state.livestock[payload.aquariumId]
         .map((item) => item._id)
         .indexOf(payload.livestockId);
